@@ -7,9 +7,6 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top:0px;
-    left:0px;
 }
 
 header h1 {
@@ -32,7 +29,7 @@ header h1 {
     background-color: #FAFAFA;
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
-    margin: 215px auto;
+    margin: 77px auto;
 }
 
 .nao-criou-quizz {
@@ -84,9 +81,17 @@ header h1 {
 }
 
 .container-quizzes {
-    width: 1050px;
-    display: flex;
+    width: 1100px;
+    height: 390px;
     margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.container-quizzes::-webkit-scrollbar {
+    display: none;
 }
 
 .quizz{
@@ -128,7 +133,7 @@ header h1 {
 }
 
 .titulo-segundo-container{
-    width: 1050px;
+    width: 1100px;
     height: 23px;
     margin: 0px auto;
     margin-top: 77px;

@@ -48,7 +48,7 @@ header h1 {
 .nao-criou-quizz p {
     font-family: 'Roboto';
     font-style: normal;
-    nt-weight: 400;
+    font-weight: 400;
     font-size: 20px;
     line-height: 23px;
     color: #B9B9B9;
@@ -87,7 +87,6 @@ header h1 {
     width: 1050px;
     display: flex;
     margin: 0px auto;
-    background-color: green;
 }
 
 .quizz{
@@ -95,18 +94,26 @@ header h1 {
     height: 181px;
     margin-right: 15px;
     margin-top: 12px;
-    background-color: red;
     position: relative;
 }
 
 .quizz img {
     width:340px;
     height: 181px;
-    
     border-radius: 5px;
 }
 
-.quizz div{
+.gradiente{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(0deg, rgba(20,15,3,1) 0%, rgba(255,255,255,0.03125) 100%);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.quizz p{
     width: 301px;
     height: 54px;
     font-family: 'Roboto';

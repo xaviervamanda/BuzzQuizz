@@ -45,7 +45,7 @@ function exibirQuizz(quizz){
         let quiz = '';
         dadosQuizzServidor.questions.forEach(question => {
             pergunta = `
-                    <div class="titulo-pergunta">
+                    <div style="background-color: ${question.color};"  class="titulo-pergunta">
                         <h3>${question.title}</h3>
                     </div>`;
             question.answers.sort(comparator);        
@@ -64,6 +64,7 @@ function exibirQuizz(quizz){
             pergunta = '';
             respostas = '';
         });
+        document.querySelector('.titulo-tela2 img').attributes.getNamedItem('src').value = `${dadosQuizzServidor.image}`;
         document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
     });

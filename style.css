@@ -1,3 +1,11 @@
+body {
+    background-color: #FAFAFA;
+}
+
+.esconder{
+    display: none;
+}
+
 /* ------------------------------------ barra de título ---------------------------------------- */
 header{
     width: 100%;
@@ -19,7 +27,7 @@ header h1 {
 }
 
 /* ---------------------------------------- Conteúdo da página ----------------------------------- */
-
+/* ---------------------------------------- Tela 1 ----------------------------------- */
 
 /* ------------Seção de criação de Quiz-----------*/
 
@@ -148,6 +156,93 @@ header h1 {
     color: #000000;
 }
 
-.esconder{
-    display: none;
+
+
+/* ---------------------------------------- Conteúdo da página ----------------------------------- */
+/* ---------------------------------------- Tela 2 ----------------------------------- */
+
+/* ---------------------------------------- Conteúdo da página ----------------------------------- */
+/* ---------------------------------------- Tela 3.1 ----------------------------------- */
+
+.tela3 {
+    background-color: #FAFAFA;
+}
+
+.tela3 h2 {
+    width: 600px;
+    height: 27px;
+    margin: 0px auto;
+    margin-top: 71px;
+    margin-bottom: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+}
+
+.infos-criacao-quizz {
+    width: 600px;
+    height: 256px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.infos-criacao-quizz div {
+    width: 564px;
+    height: 46px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+.infos-criacao-quizz input {
+    width: 517.68px;
+    height: 22px;
+    border: 0px;
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+}
+
+.infos-criacao-quizz input::placeholder{
+    color: #BABABA;
+}
+
+.infos-criacao-quizz div:first-child{
+    margin-top: 21px;
+}
+
+.botao-prosseguir {
+    width: 368.86px;
+    height: 54px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    margin: 85px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao-prosseguir button {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    color: #FFF5F4;
+    border: 0px;
+    background-color: #EC362D;
 }

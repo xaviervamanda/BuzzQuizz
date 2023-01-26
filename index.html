@@ -22,6 +22,7 @@
     </header>
 
     <div class="tela1">
+
         <section class="primeiro-container">
 
             <div class="nao-criou-quizz">
@@ -31,8 +32,8 @@
                 </div>
             </div>
 
-            <div class="botao-criar-quizz">
-                <div>Criar Quizz</div>
+            <div class="botao-criar-quizz" onclick="acessarTelaCriarQuizz()">
+                <div >Criar Quizz</div>
             </div>
 
         </section>
@@ -43,73 +44,10 @@
                 <p>Todos os Quizzes</p>
             </div>
 
-            <div class="container-quizzes">
+            <div class="container-quizzes"></div>
 
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-                <div class="quizz">
-                    <img
-                        src="https://observatoriodocinema.uol.com.br/wp-content/uploads/2019/08/the-simpsons-tv-series-cast-wallpaper-109911.0.0-1.jpeg">
-                    <div class="gradiente"></div>
-                    <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                </div>
-
-            </div>
         </section>
+
     </div><!--Fim da tela 1-->
 
     <div class="tela2 esconder">
@@ -118,9 +56,42 @@
         </div>
     </div><!--Fim da tela 2-->
 
-    <div class="tela3 esconder">
+    <div class="tela3-parte-um esconder">
 
-    </div><!--Fim da tela 3-->
+        <h2>
+            Comece pelo começo
+        </h2>
+
+        <div class="infos-criacao-quizz">
+            <div>
+                <input class="titulo-quizz" type="text" placeholder="Título do seu quizz"> 
+            </div>
+            <div>
+                <input class="url-imagem" type="text" placeholder="URL da imagem do seu quizz">
+            </div>
+            <div>
+                <input class="qnt-perguntas" type="text" placeholder="Quantidade de perguntas do quizz">  
+            </div>
+            <div>
+                <input class="qnt-niveis" type="text" placeholder="Quantidade de níveis do quizz">
+            </div>
+            
+        </div>
+
+        <div class="botao-prosseguir" onclick="criarPerguntas()">
+           <button>Prosseguir para criar perguntas</button>
+        </div>
+        
+    </div> <!-- Fim da tela 3.1 -->
+
+    <div class="tela3-parte-dois-incial">
+
+        <div>
+          <p>Pergunta 1</p>
+          <ion-icon name="create-outline"></ion-icon>
+        </div>
+        
+    </div>
 
     <!-- tag do arquivo Axios-JS -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

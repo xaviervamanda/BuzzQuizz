@@ -1,4 +1,5 @@
 let listaQuizzes;
+let escolhas = 0;
 const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 const criarQuizzTitulo = document.querySelector('.titulo-quizz').value;
@@ -7,8 +8,8 @@ const criarQuizzQntPerguntas = document.querySelector('.qnt-perguntas').value;
 const criarQuizzQntNiveis = document.querySelector('.qnt-niveis').value;
 
 function criarPerguntas() {
-    const arry = ["1","2","3","4","5","6","7","8","9","0"];
-    if (criarQuizzTitulo !== ''&& criarQuizzImagem !== '' && criarQuizzQntPerguntas !== '' && criarQuizzQntNiveis !== ''){
+    const arry = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    if (criarQuizzTitulo !== '' && criarQuizzImagem !== '' && criarQuizzQntPerguntas !== '' && criarQuizzQntNiveis !== '') {
         // transformar a string qntperguntas e qntniveis em array de caracteres
         // checar se cada caracter ta dentro do arry por um for
         // checar se qnt perguntas >= 3
@@ -21,7 +22,7 @@ function criarPerguntas() {
 
 }
 
-function acessarTelaCriarQuizz (){
+function acessarTelaCriarQuizz() {
     const tela1 = document.querySelector('.tela1');
     tela1.classList.add('esconder');
     const tela3Parte1 = document.querySelector('.tela3-parte-um');
@@ -32,7 +33,36 @@ function comparator() {
     return Math.random() - 0.5;
 }
 
-function exibirQuizz(quizz){
+function selecionarResposta(resposta) {
+
+    const respostas = resposta.parentNode;
+
+    if (respostas.querySelectorAll('.escolha').length < 1) {
+        resposta.classList.add('escolha');
+        const listaRespostas = respostas.querySelectorAll('.resposta');
+
+        for (let i = 0; i < listaRespostas.length; i++) {
+            if (listaRespostas[i].classList.contains('gabarito')) {
+                listaRespostas[i].querySelector('.resposta h4').classList.add('correto');
+            } else {
+                listaRespostas[i].querySelector('.resposta h4').classList.add('errado');
+            }
+
+            if (!listaRespostas[i].classList.contains('escolha')) {
+                listaRespostas[i].querySelector('.efeito-branco').classList.remove('esconder');
+            }
+        }
+        escolhas++;
+        setTimeout(() =>{
+            const proximaPergunta = document.querySelector(`.pergunta:nth-child(${escolhas+1})`);
+            if(proximaPergunta!==null){
+                proximaPergunta.scrollIntoView();
+            }
+        },2000);
+    }
+}
+
+function exibirQuizz(quizz) {
     let idQuizz;
     document.querySelector('.tela1').classList.add('esconder');
     document.querySelector('.tela2').classList.remove('esconder');
@@ -48,13 +78,23 @@ function exibirQuizz(quizz){
                     <div style="background-color: ${question.color};"  class="titulo-pergunta">
                         <h3>${question.title}</h3>
                     </div>`;
-            question.answers.sort(comparator);        
+            question.answers.sort(comparator);
             question.answers.forEach(answer => {
-              respostas += `
-                <div class="resposta">
-                    <img src="${answer.image}" alt="">
-                    <h4>${answer.text}</h4>
-                </div>`;  
+                if (answer.isCorrectAnswer === true) {
+                    respostas += `
+                    <div onclick="selecionarResposta(this)" class="resposta gabarito">
+                        <img src="${answer.image}" alt="">
+                        <h4>${answer.text}</h4>
+                        <div class="efeito-branco esconder"></div>
+                    </div>`;
+                } else {
+                    respostas += `
+                    <div onclick="selecionarResposta(this)" class="resposta">
+                        <img src="${answer.image}" alt="">
+                        <h4>${answer.text}</h4>
+                        <div class="efeito-branco esconder"></div>
+                    </div>`;
+                }
             });
             quiz += `
                 <div class="pergunta">
@@ -68,14 +108,14 @@ function exibirQuizz(quizz){
         document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
     });
-    
-    promise.catch ( () => {
-        confirm ("Ocorreu um erro ao exibir o quizz. Recarregue a página.");
+
+    promise.catch(() => {
+        confirm("Ocorreu um erro ao exibir o quizz. Recarregue a página.");
         window.location.reload;
     })
 }
 
-function getQuizzes (){
+function getQuizzes() {
     const promise = axios.get(url);
 
     promise.then(response => {
@@ -89,14 +129,14 @@ function getQuizzes (){
                 <p>${dadosQuizzesServidor[i].title}</p>
             </div>
             `;
-    }
-    document.querySelector('.container-quizzes').innerHTML += listaQuizzes;
+        }
+        document.querySelector('.container-quizzes').innerHTML += listaQuizzes;
     });
 
-    promise.catch ( () => {
-        confirm ("Ocorreu um erro ao buscar os quizzes. Recarregue a página.");
+    promise.catch(() => {
+        confirm("Ocorreu um erro ao buscar os quizzes. Recarregue a página.");
         window.location.reload;
     })
 }
 
-getQuizzes ();
+getQuizzes();

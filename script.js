@@ -1,4 +1,5 @@
 let listaQuizzes;
+let escolhas = 0;
 const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 const tela1 = document.querySelector('.tela1');
@@ -96,7 +97,36 @@ function comparator() {
     return Math.random() - 0.5;
 }
 
-function exibirQuizz(quizz){
+function selecionarResposta(resposta) {
+
+    const respostas = resposta.parentNode;
+
+    if (respostas.querySelectorAll('.escolha').length < 1) {
+        resposta.classList.add('escolha');
+        const listaRespostas = respostas.querySelectorAll('.resposta');
+
+        for (let i = 0; i < listaRespostas.length; i++) {
+            if (listaRespostas[i].classList.contains('gabarito')) {
+                listaRespostas[i].querySelector('.resposta h4').classList.add('correto');
+            } else {
+                listaRespostas[i].querySelector('.resposta h4').classList.add('errado');
+            }
+
+            if (!listaRespostas[i].classList.contains('escolha')) {
+                listaRespostas[i].querySelector('.efeito-branco').classList.remove('esconder');
+            }
+        }
+        escolhas++;
+        setTimeout(() =>{
+            const proximaPergunta = document.querySelector(`.pergunta:nth-child(${escolhas+1})`);
+            if(proximaPergunta!==null){
+                proximaPergunta.scrollIntoView();
+            }
+        },2000);
+    }
+}
+
+function exibirQuizz(quizz) {
     let idQuizz;
     document.querySelector('.tela1').classList.add('esconder');
     document.querySelector('.tela2').classList.remove('esconder');
@@ -112,13 +142,23 @@ function exibirQuizz(quizz){
                     <div style="background-color: ${question.color};"  class="titulo-pergunta">
                         <h3>${question.title}</h3>
                     </div>`;
-            question.answers.sort(comparator);        
+            question.answers.sort(comparator);
             question.answers.forEach(answer => {
-              respostas += `
-                <div class="resposta">
-                    <img src="${answer.image}" alt="">
-                    <h4>${answer.text}</h4>
-                </div>`;  
+                if (answer.isCorrectAnswer === true) {
+                    respostas += `
+                    <div onclick="selecionarResposta(this)" class="resposta gabarito">
+                        <img src="${answer.image}" alt="">
+                        <h4>${answer.text}</h4>
+                        <div class="efeito-branco esconder"></div>
+                    </div>`;
+                } else {
+                    respostas += `
+                    <div onclick="selecionarResposta(this)" class="resposta">
+                        <img src="${answer.image}" alt="">
+                        <h4>${answer.text}</h4>
+                        <div class="efeito-branco esconder"></div>
+                    </div>`;
+                }
             });
             quiz += `
                 <div class="pergunta">
@@ -132,9 +172,9 @@ function exibirQuizz(quizz){
         document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
     });
-    
-    promise.catch ( () => {
-        alert ("Ocorreu um erro ao exibir o quizz. Recarregue a página.");
+
+    promise.catch(() => {
+        confirm("Ocorreu um erro ao exibir o quizz. Recarregue a página.");
         window.location.reload;
     })
 }

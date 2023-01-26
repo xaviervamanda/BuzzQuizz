@@ -28,8 +28,50 @@ function acessarTelaCriarQuizz (){
     tela3Parte1.classList.remove('esconder');
 }
 
-function selecionarQuizz(quizz){
-    alert('quiz selecionado');
+function comparator() {
+    return Math.random() - 0.5;
+}
+
+function exibirQuizz(quizz){
+    let idQuizz;
+    document.querySelector('.tela1').classList.add('esconder');
+    document.querySelector('.tela2').classList.remove('esconder');
+    idQuizz = quizz.attributes.getNamedItem('id').value;
+    const promise = axios.get(`${url}/${idQuizz}`);
+    promise.then((response) => {
+        const dadosQuizzServidor = response.data;
+        let pergunta = '';
+        let respostas = '';
+        let quiz = '';
+        dadosQuizzServidor.questions.forEach(question => {
+            pergunta = `
+                    <div class="titulo-pergunta">
+                        <h3>${question.title}</h3>
+                    </div>`;
+            question.answers.sort(comparator);        
+            question.answers.forEach(answer => {
+              respostas += `
+                <div class="resposta">
+                    <img src="${answer.image}" alt="">
+                    <h4>${answer.text}</h4>
+                </div>`;  
+            });
+            quiz += `
+                <div class="pergunta">
+                    ${pergunta}
+                    <div class="respostas">${respostas} </div>
+                </div>`;
+            pergunta = '';
+            respostas = '';
+        });
+        document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
+        document.querySelector('.perguntas-tela2').innerHTML = quiz;
+    });
+    
+    promise.catch ( () => {
+        confirm ("Ocorreu um erro ao exibir o quizz. Recarregue a página.");
+        window.location.reload;
+    })
 }
 
 function getQuizzes (){
@@ -40,7 +82,7 @@ function getQuizzes (){
         listaQuizzes = '';
         for (let i = 0; i < dadosQuizzesServidor.length; i++) {
             listaQuizzes += `
-            <div onclick="selecionarQuizz(this)" class="quizz">
+            <div id="${dadosQuizzesServidor[i].id}" onclick="exibirQuizz(this)" class="quizz">
                 <img src="${dadosQuizzesServidor[i].image}">
                 <div class="gradiente"></div>
                 <p>${dadosQuizzesServidor[i].title}</p>

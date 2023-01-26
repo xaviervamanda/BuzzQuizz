@@ -15,6 +15,10 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    z-index: 2;
 }
 
 header h1 {
@@ -37,7 +41,7 @@ header h1 {
     background-color: #FAFAFA;
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
-    margin: 77px auto;
+    margin: 146px auto;
 }
 
 .nao-criou-quizz {
@@ -160,6 +164,68 @@ header h1 {
 
 /* ---------------------------------------- Conteúdo da página ----------------------------------- */
 /* ---------------------------------------- Tela 2 ----------------------------------- */
+.tela2{
+    font-family: 'Roboto';
+}
+
+.pergunta{
+    width: 759px;
+    padding: 30px;
+    margin: 20px auto;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.titulo-tela2{
+    height: 227px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('https://s2.glbimg.com/hz5CAVNW7HXHDV428MGdUU3FEYA=/0x0:1280x768/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_f035dd6fd91c438fa04ab718d608bbaa/internal_photos/bs/2019/n/n/WF1sqMRMa6A3IkG1Oakw/friends2.jpg');
+    margin: 69px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-tela2 h2{
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    color: #FFFFFF;
+}
+
+.titulo-pergunta{
+    height: 138px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #434CA0;
+}
+
+.titulo-pergunta h3{
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;
+}
+
+.respostas{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.resposta img{
+    width: 330px;
+    height: 175px;
+    margin:8px 0px;
+}
+
+.resposta h4{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
 
 /* ---------------------------------------- Conteúdo da página ----------------------------------- */
 /* ---------------------------------------- Tela 3.1 ----------------------------------- */

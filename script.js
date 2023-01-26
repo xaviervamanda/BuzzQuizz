@@ -10,7 +10,7 @@ function insereQuizzesNoHtml(response){
     listaQuizzes = '';
     for (let i = 0; i < response.data.length; i++) {
         listaQuizzes += `
-        <div class="quizz">
+        <div onclick="selecionarQuizz(this)" class="quizz">
             <img src="${response.data[i].image}">
             <div class="gradiente"></div>
             <p>${response.data[i].title}</p>
@@ -19,4 +19,8 @@ function insereQuizzesNoHtml(response){
     }
     document.querySelector('.container-quizzes').innerHTML = '';
     document.querySelector('.container-quizzes').innerHTML = listaQuizzes;
+}
+
+function selecionarQuizz(quizz){
+    alert('quiz selecionado');
 }

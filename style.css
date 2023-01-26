@@ -24,7 +24,7 @@ header h1 {
 /* ------------Seção de criação de Quiz-----------*/
 
 .primeiro-container {
-    width: 1051px;
+    width: 1065px;
     height: 181px;
     background-color: #FAFAFA;
     border: 1px dashed #D5D5D5;
@@ -81,7 +81,7 @@ header h1 {
 }
 
 .container-quizzes {
-    width: 1100px;
+    width: 1065px;
     height: 390px;
     margin: 0px auto;
     display: flex;
@@ -112,7 +112,7 @@ header h1 {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    background: linear-gradient(0deg, rgba(20,15,3,1) 0%, rgba(255,255,255,0.03125) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -133,7 +133,7 @@ header h1 {
 }
 
 .titulo-segundo-container{
-    width: 1100px;
+    width: 1065px;
     height: 23px;
     margin: 0px auto;
     margin-top: 77px;
@@ -146,4 +146,8 @@ header h1 {
     font-size: 20px;
     line-height: 23px;
     color: #000000;
+}
+
+.esconder{
+    display: none;
 }

@@ -13,8 +13,18 @@ let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 
 let checagem = [];
 
-function mostraCamposPergunta (){
-    alert ("Pode mostrar os campos da pergunta.");
+function mostrarPaginaCriacaoNiveis(){
+    alert ("Pode mostrar página 3.3");
+}
+
+function mostraCamposPergunta (divPerguntaEdicao){
+    divPerguntaEdicao.style.display = "none";
+    console.log(divPerguntaEdicao);
+    const paragrafoDaDiv = divPerguntaEdicao.querySelector('p');
+    console.log(paragrafoDaDiv);
+    const divCamposPergunta = document.querySelector(`div[data-name="${paragrafoDaDiv.innerHTML}"]`);
+    console.log (divCamposPergunta);
+    divCamposPergunta.style.display = "flex";
 }
 
 function checaQntNiveisQuizz (){
@@ -69,22 +79,163 @@ function mostrarPaginaCriacaoPerguntas() {
                 tela3Parte2Inicial.innerHTML += `
                 <h2>Crie suas Perguntas</h2>
 
-                <div class="caixa-pergunta">
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposPergunta (this)">
                     <p>Pergunta ${(i + 1)}</p>
-                    <ion-icon name="create-outline" onclick="mostraCamposPergunta ()"></ion-icon>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+
+                <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
+                    <div class="titulo-criar-perguntas">
+                        Pergunta ${(i + 1)}
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text"  placeholder="Texto da pergunta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text"  placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Resposta correta
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="Resposta correta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="URL da imagem">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Respostas incorretas
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="Resposta incorreta 1">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input type="text" placeholder="URL da imagem 1">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="Resposta incorreta 2">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input type="text" placeholder="URL da imagem 2">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="Resposta incorreta 3">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input type="text" placeholder="URL da imagem 3">
+                    </div>
                 </div>
                 `;  
+            } else if (i === (criarQuizzQntPerguntas.value - 1)) {
+                tela3Parte2Inicial.innerHTML += `
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposPergunta (this)">
+                  <p>Pergunta ${(i + 1)}</p>
+                  <ion-icon name="create-outline"></ion-icon>
+                </div>
+                <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
+                      <div class="titulo-criar-perguntas">
+                          Pergunta ${(i + 1)}
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text"  placeholder="Texto da pergunta">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text"  placeholder="Cor de fundo da pergunta">
+                      </div>
+                      <div class="titulo-criar-perguntas">
+                          Resposta correta
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta correta">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="URL da imagem">
+                      </div>
+                      <div class="titulo-criar-perguntas">
+                          Respostas incorretas
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 1">
+                      </div>
+                      <div class="input-criar-perguntas margem-especial">
+                          <input type="text" placeholder="URL da imagem 1">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 2">
+                      </div>
+                      <div class="input-criar-perguntas margem-especial">
+                          <input type="text" placeholder="URL da imagem 2">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 3">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="URL da imagem 3">
+                      </div>
+                </div>
+
+                <div class="botao-prosseguir" onclick="mostrarPaginaCriacaoNiveis()">
+                    <button>Prosseguir para criar níveis</button>
+                </div>
+                `;     
             } else {
-              tela3Parte2Inicial.innerHTML += `
-            <div class="caixa-pergunta">
-                <p>Pergunta ${(i + 1)}</p>
-                <ion-icon name="create-outline" onclick="mostraCamposPergunta ()"></ion-icon>
-            </div>
-            `;  
+                tela3Parte2Inicial.innerHTML += `
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposPergunta (this)">
+                  <p>Pergunta ${(i + 1)}</p>
+                  <ion-icon name="create-outline"></ion-icon>
+                </div>
+                <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
+                      <div class="titulo-criar-perguntas">
+                          Pergunta ${(i + 1)}
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text"  placeholder="Texto da pergunta">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text"  placeholder="Cor de fundo da pergunta">
+                      </div>
+                      <div class="titulo-criar-perguntas">
+                          Resposta correta
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta correta">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="URL da imagem">
+                      </div>
+                      <div class="titulo-criar-perguntas">
+                          Respostas incorretas
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 1">
+                      </div>
+                      <div class="input-criar-perguntas margem-especial">
+                          <input type="text" placeholder="URL da imagem 1">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 2">
+                      </div>
+                      <div class="input-criar-perguntas margem-especial">
+                          <input type="text" placeholder="URL da imagem 2">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="Resposta incorreta 3">
+                      </div>
+                      <div class="input-criar-perguntas">
+                          <input type="text" placeholder="URL da imagem 3">
+                      </div>
+                </div>
+                `;    
             }
         }
         tela3Parte1.classList.add ('esconder');
         tela3Parte2Inicial.classList.remove('esconder');
+        const divsEscondidas = document.querySelectorAll('.margem-container3-parte-dois');
+        console.log (divsEscondidas);
+        for (let i = 0; i < divsEscondidas.length; i++){
+            divsEscondidas[i].style.display = "none";
+            console.log(divsEscondidas[i]);
+        }
     }
 }
 

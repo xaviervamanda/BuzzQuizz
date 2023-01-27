@@ -1,5 +1,8 @@
 let listaQuizzes;
 let escolhas = 0;
+let acertos = 0;
+let resultado = 0;
+let niveis = [];
 const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 const tela1 = document.querySelector('.tela1');
@@ -248,9 +251,43 @@ function comparator() {
     return Math.random() - 0.5;
 }
 
+function calculaNivel(resultado){
+    let level = {minValue:0};
+    niveis.forEach(nivel => {
+        if(nivel.minValue<=resultado)
+            if(level.minValue<=nivel.minValue)
+                level=nivel;
+    });
+    return level;
+}
+
+function verificaFinalQuizz(escolhas){
+    const quantidadePerguntas = document.querySelectorAll('.perguntas-tela2 .pergunta').length;
+
+    if(escolhas === quantidadePerguntas){
+        resultado = Math.floor(acertos/escolhas*100);
+        const nivel = calculaNivel(resultado);
+        const titulo = document.querySelector('.resultado-quizz .resultado h3');
+        const imagem = document.querySelector('.mensagem-final img');
+        const descricao = document.querySelector('.mensagem-final p');
+        titulo.innerHTML = `${resultado}% de acerto: ${nivel.title}`
+        imagem.attributes.getNamedItem('src').value = nivel.image;
+        descricao.innerHTML = nivel.text;
+        return true;
+    }
+    return false;
+}
+
+function verificaAcerto(resposta){
+    const resultado = resposta.classList.contains('gabarito');
+    if(resultado)
+        acertos++;
+}
+
 function selecionarResposta(resposta) {
 
     const respostas = resposta.parentNode;
+    verificaAcerto(resposta);
 
     if (respostas.querySelectorAll('.escolha').length < 1) {
         resposta.classList.add('escolha');
@@ -268,12 +305,24 @@ function selecionarResposta(resposta) {
             }
         }
         escolhas++;
+
         setTimeout(() =>{
             const proximaPergunta = document.querySelector(`.pergunta:nth-child(${escolhas+1})`);
             if(proximaPergunta!==null){
                 proximaPergunta.scrollIntoView();
             }
         },2000);
+
+        if(verificaFinalQuizz(escolhas)){
+            const finalQuizz = document.querySelector('.resultado-quizz');
+
+            setTimeout(() => {
+                finalQuizz.classList.remove('esconder');
+                document.querySelector('.reiniciar').classList.remove('esconder');
+                document.querySelector('.home').classList.remove('esconder');
+                finalQuizz.scrollIntoView();
+            },2000);
+        }
     }
 }
 
@@ -322,6 +371,8 @@ function exibirQuizz(quizz) {
         document.querySelector('.titulo-tela2 img').attributes.getNamedItem('src').value = `${dadosQuizzServidor.image}`;
         document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
+
+        dadosQuizzServidor.levels.forEach(nivel => niveis.push(nivel));
     });
 
     promise.catch(() => {

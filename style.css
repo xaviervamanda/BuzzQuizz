@@ -284,13 +284,13 @@ header h1 {
 
 .botoes{
     margin:20px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center ;
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .botoes button{

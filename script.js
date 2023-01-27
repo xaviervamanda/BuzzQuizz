@@ -3,6 +3,7 @@ let escolhas = 0;
 let acertos = 0;
 let resultado = 0;
 let niveis = [];
+let quizzAtual;
 const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 const tela1 = document.querySelector('.tela1');
@@ -328,6 +329,7 @@ function selecionarResposta(resposta) {
 
 function exibirQuizz(quizz) {
     let idQuizz;
+    quizzAtual = quizz;
     document.querySelector('.tela1').classList.add('esconder');
     document.querySelector('.tela2').classList.remove('esconder');
     idQuizz = quizz.attributes.getNamedItem('id').value;
@@ -373,6 +375,7 @@ function exibirQuizz(quizz) {
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
 
         dadosQuizzServidor.levels.forEach(nivel => niveis.push(nivel));
+        setTimeout(() => document.querySelector('.pergunta:first-child').scrollIntoView(),2000);
     });
 
     promise.catch(() => {
@@ -403,6 +406,25 @@ function getQuizzes (){
         confirm ("Ocorreu um erro ao buscar os quizzes. Recarregue a página.");
         window.location.reload;
     })
+}
+
+function resetQuizz(){
+    document.querySelector('.perguntas-tela2').innerHTML = '';
+    document.querySelector('.reiniciar').classList.add('esconder');
+    document.querySelector('.home').classList.add('esconder');
+    const finalQuizz = document.querySelector('.resultado-quizz');
+    finalQuizz.classList.add('esconder');
+    finalQuizz.querySelector('.resultado-quizz .resultado h3').innerHTML = '';
+    finalQuizz.querySelector('.mensagem-final img').attributes.getNamedItem('src').value = '';
+    finalQuizz.querySelector('.mensagem-final p').innerHTML = '';
+    escolhas = 0;
+    acertos = 0;
+    resultado = 0;
+    exibirQuizz(quizzAtual);
+}
+
+function home(){
+    window.location.reload();
 }
 
 getQuizzes ();

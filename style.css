@@ -168,7 +168,7 @@ header h1 {
     font-family: 'Roboto';
 }
 
-.pergunta{
+.pergunta,.resultado-quizz{
     width: 759px;
     padding: 30px;
     margin: 20px auto;
@@ -259,6 +259,61 @@ header h1 {
 
 .errado{
     color: red;
+}
+
+.resultado{
+    background-color: #EC362D;
+}
+
+.mensagem-final{
+    display: flex;
+}
+
+.mensagem-final p{
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 25px;
+    color: #484848;
+    margin: 18px;
+}
+
+.resultado-quizz img{
+    width: 364px;
+    margin: 18px 0px;
+}
+
+.botoes{
+    margin:20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.botoes button{
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+}
+
+.reiniciar{
+    width: 261px;
+    height: 52px;
+    margin: 10px 0px;
+    border-radius: 15px;
+    border: none;
+    color: #FFF5F4;
+    background-color: #EC362D;
+}
+
+.home{
+    color: #818181;
+    background-color: #FAFAFA;
+    border: none;
 }
 
 /* ---------------------------------------- Conteúdo da página ----------------------------------- */

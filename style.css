@@ -471,7 +471,7 @@ input::placeholder{
 }
 
 .input-criar-perguntas input {
-    margin-left: 23.16px;
+    margin-left: 14px;
 }
 
 .margem-container3-parte-dois {
@@ -481,4 +481,41 @@ input::placeholder{
 
 .margem-especial {
     margin-bottom: 34px;
+}
+
+/* ---------------------------------------- Conteúdo da página ----------------------------------- */
+/* ---------------------------------------- Tela 3.3 ----------------------------------- */
+
+.input-criar-niveis {
+    width: 564px;
+    height: 46px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    margin-bottom: 14px;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.tela3-parte-tres h2 {
+    margin-top: 108px;
+}
+
+.tamanho-container {
+    height: 439px;
+    margin-top: 24px;
+}
+
+.input-criar-niveis input {
+    margin-left: 14px;
+}
+
+.tamanho-input {
+    height: 177px;
+    align-items: baseline;
+}
+
+.tamanho-input input {
+    margin-top: 13px;
 }

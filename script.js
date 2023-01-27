@@ -8,7 +8,8 @@ const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes';
 
 const tela1 = document.querySelector('.tela1');
 const tela3Parte1 = document.querySelector ('.tela3-parte-um');
-const tela3Parte2Inicial = document.querySelector(".tela3-parte-dois-incial");
+const tela3Parte2Inicial = document.querySelector('.tela3-parte-dois-incial');
+const tela3Parte3 = document.querySelector('.tela3-parte-tres');
 
 let criarQuizzTitulo = document.querySelector('.titulo-quizz');
 let criarQuizzImagem = document.querySelector('.url-imagem');
@@ -17,17 +18,142 @@ let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 
 let checagem = [];
 
-function mostrarPaginaCriacaoNiveis(){
-    alert ("Pode mostrar página 3.3");
+let checagemDois = [];
+
+function mostraCamposNivel (divNivelEdicao){
+    divNivelEdicao.style.display = "none";
+    const paragrafoDaDiv = divNivelEdicao.querySelector('p');
+    const divCamposNivel = document.querySelector(`div[data-name="${paragrafoDaDiv.innerHTML}"]`);
+    divCamposNivel.style.display = "flex";
 }
+
+function checaRespostas (){
+    checagemDois.push("OK");
+}
+
+function checaTextoRepostas () {
+    checagemDois.push("OK");
+}
+
+function checaURLImagemPergunta (){
+    try {
+        new URL(criarQuizzImagem.value)
+        checagemDois.push("OK");
+    } catch(err) {
+        alert ("Insira um URL válido. Deve ser o endereço de uma imagem.");
+    }    
+}
+
+function checaTituloPergunta () {
+    checagemDois.push("OK");
+}
+
+function mostrarPaginaCriacaoNiveis(){
+    checagemDois = [];
+    checaTituloPergunta ();
+    checaURLImagemPergunta ();
+    checaTextoRepostas ();
+    checaRespostas ();
+    console.log (checagemDois);
+    if (checagemDois.length === 4){
+        for (i = 0; i < criarQuizzQntNiveis.value; i++){
+            if (i === 0){
+                tela3Parte3.innerHTML += `
+                <h2>Agora, decida os níveis</h2>
+
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposNivel (this)">
+                    <p>Nível ${(i + 1)}</p>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+
+                <div data-name="Nível ${(i + 1)}" class="tamanho-container container-tela3 margem-container3-parte-dois">
+                    <div class="titulo-criar-perguntas">
+                        Nível ${(i + 1)}
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="Título do nível">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="% acerto mínima">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="URL da imagem do nível">
+                    </div>
+                    <div class="input-criar-niveis tamanho-input">
+                        <input type="text"  placeholder="Descrição do nível">
+                    </div>
+                </div>
+                `;  
+            } else if (i === (criarQuizzQntNiveis.value - 1)) {
+                tela3Parte3.innerHTML += `
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposNivel (this)">
+                    <p>Nível ${(i + 1)}</p>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+
+                <div data-name="Nível ${(i + 1)}" class="tamanho-container container-tela3 margem-container3-parte-dois">
+                    <div class="titulo-criar-perguntas">
+                        Nível ${(i + 1)}
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="Título do nível">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="% acerto mínima">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="URL da imagem do nível">
+                    </div>
+                    <div class="input-criar-niveis tamanho-input">
+                        <input type="text"  placeholder="Descrição do nível">
+                    </div>
+                </div>
+
+                <div class="botao-prosseguir" onclick="mostrarPaginaSucessoQuizz()">
+                    <button>Finalizar Quizz</button>
+                </div>
+                `;     
+            } else {
+                tela3Parte3.innerHTML += `
+                <div class="caixa-pergunta container-tela3" onclick="mostraCamposNivel (this)">
+                    <p>Nível ${(i + 1)}</p>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+
+                <div data-name="Nível ${(i + 1)}" class="tamanho-container container-tela3 margem-container3-parte-dois">
+                    <div class="titulo-criar-perguntas">
+                        Nível ${(i + 1)}
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="Título do nível">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="% acerto mínima">
+                    </div>
+                    <div class="input-criar-niveis">
+                        <input type="text"  placeholder="URL da imagem do nível">
+                    </div>
+                    <div class="input-criar-niveis tamanho-input">
+                        <input type="text"  placeholder="Descrição do nível">
+                    </div>
+                </div>
+                `;    
+            }
+        }
+        tela3Parte2Inicial.classList.add ('esconder');
+        tela3Parte3.classList.remove('esconder');
+        const divsEscondidas = document.querySelectorAll('.tela3-parte-tres .margem-container3-parte-dois');
+        for (let i = 0; i < divsEscondidas.length; i++){
+            divsEscondidas[i].style.display = "none";
+        }
+    }
+}
+
 
 function mostraCamposPergunta (divPerguntaEdicao){
     divPerguntaEdicao.style.display = "none";
-    console.log(divPerguntaEdicao);
     const paragrafoDaDiv = divPerguntaEdicao.querySelector('p');
-    console.log(paragrafoDaDiv);
     const divCamposPergunta = document.querySelector(`div[data-name="${paragrafoDaDiv.innerHTML}"]`);
-    console.log (divCamposPergunta);
     divCamposPergunta.style.display = "flex";
 }
 
@@ -54,8 +180,12 @@ function checaQntPerguntasQuizz (){
 
 function checaURLImagemQuizz (){
     // URL da Imagem: deve ter formato de URL
-    // Quando tiver a forma certa de checar se a URL é válida, add um "OK" no array checagem
-    checagem.push ("OK");
+    try {
+        new URL(criarQuizzImagem.value)
+        checagem.push ("OK");
+    } catch(err) {
+        alert ("Insira um URL válido. Deve ser o endereço de uma imagem.");
+    }    
 }
 
 function checaTituloQuizz (){
@@ -76,7 +206,6 @@ function mostrarPaginaCriacaoPerguntas() {
     checaURLImagemQuizz ();
     checaQntPerguntasQuizz ();
     checaQntNiveisQuizz ();
-    console.log (checagem);
     if (checagem.length === 4){
         for (i = 0; i < criarQuizzQntPerguntas.value; i++){
             if (i === 0){
@@ -93,10 +222,10 @@ function mostrarPaginaCriacaoPerguntas() {
                         Pergunta ${(i + 1)}
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text"  placeholder="Texto da pergunta">
+                        <input type="text" placeholder="Texto da pergunta">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text"  placeholder="Cor de fundo da pergunta">
+                        <input type="text" placeholder="Cor de fundo da pergunta">
                     </div>
                     <div class="titulo-criar-perguntas">
                         Resposta correta
@@ -234,11 +363,9 @@ function mostrarPaginaCriacaoPerguntas() {
         }
         tela3Parte1.classList.add ('esconder');
         tela3Parte2Inicial.classList.remove('esconder');
-        const divsEscondidas = document.querySelectorAll('.margem-container3-parte-dois');
-        console.log (divsEscondidas);
+        const divsEscondidas = document.querySelectorAll('.tela3-parte-dois-incial .margem-container3-parte-dois');
         for (let i = 0; i < divsEscondidas.length; i++){
             divsEscondidas[i].style.display = "none";
-            console.log(divsEscondidas[i]);
         }
     }
 }

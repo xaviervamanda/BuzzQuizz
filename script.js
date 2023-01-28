@@ -498,7 +498,7 @@ function exibirQuizz(quizz) {
             respostas = '';
         });
         document.querySelector('.titulo-tela2 img').attributes.getNamedItem('src').value = `${dadosQuizzServidor.image}`;
-        document.querySelector('.titulo-tela2 h2').innerHTML = dadosQuizzServidor.title;
+        document.querySelector('.titulo-tela2 p').innerHTML = dadosQuizzServidor.title;
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
 
         dadosQuizzServidor.levels.forEach(nivel => niveis.push(nivel));

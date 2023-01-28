@@ -2,6 +2,10 @@ body {
     background-color: #FAFAFA;
 }
 
+*{
+    box-sizing: border-box;
+}
+
 .esconder{
     display: none;
 }
@@ -42,6 +46,10 @@ header h1 {
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
     margin: 146px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .nao-criou-quizz {
@@ -51,7 +59,6 @@ header h1 {
     align-items: center;
     justify-content: center;
     margin-top: 7px;
-    margin-left: 401px;
 }
 
 .nao-criou-quizz p {
@@ -73,7 +80,6 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 451px;
 }
 
 .botao-criar-quizz div {
@@ -89,7 +95,7 @@ header h1 {
 /* ------------Seção todos os quizzes-----------*/
 
 .segundo-container {
-    margin-bottom: 211px;
+    margin-bottom: 50px;
 }
 
 .container-quizzes {
@@ -170,7 +176,7 @@ header h1 {
 
 .pergunta,.resultado-quizz{
     width: 759px;
-    padding: 30px;
+    padding: 20px;
     margin: 20px auto;
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -186,7 +192,7 @@ header h1 {
     position: relative;
 }
 
-.titulo-tela2 h2{
+.titulo-tela2 p{
     font-weight: 400;
     font-size: 39px;
     line-height: 46px;
@@ -235,14 +241,13 @@ header h1 {
 }
 
 .resposta img{
-    width: 360px;
-    height: 185px;
-    margin:8px 0px;
+    width: 330px;
+    height: 175px;
 }
 
 .resposta{
     position: relative;
-    width: 360px;
+    width: 330px;
 }
 
 .efeito-branco{
@@ -518,4 +523,64 @@ input::placeholder{
 
 .tamanho-input input {
     margin-top: 13px;
+}
+
+
+/* ---------------------------------------- MediaQuery ----------------------------------- */
+
+@media (max-width: 1100px) {
+    .primeiro-container, .container-quizzes, .titulo-segundo-container{
+        width: 710px;
+    }
+    .titulo-tela2{
+        height: 142px;
+    }
+    .titulo-tela2 p{
+        font-size: 19px;
+        line-height: 24px;
+        margin: 0 20px;
+    }
+
+    .titulo-pergunta h3{
+        font-size: 19px;
+    }
+    .resposta{
+        width: 163px;
+    }
+
+    .resposta img{
+        width: 163px;
+        height: 113px;
+    }
+
+    .respostas{
+        flex-wrap: wrap;
+        font-size: 13px;
+    }
+
+    .pergunta,.resultado-quizz{
+        width: 100%;
+    }
+
+    .resultado-quizz img{
+        width: 100%;
+    }
+
+    .mensagem-final{
+        flex-direction: column;
+    }
+
+    .mensagem-final p{
+        margin: 0px;
+    }
+
+    .reiniciar{
+        width: 220px;
+    }
+}
+
+@media (max-width: 710px) {
+    .primeiro-container, .container-quizzes, .titulo-segundo-container{
+        width: 355px;
+    }
 }

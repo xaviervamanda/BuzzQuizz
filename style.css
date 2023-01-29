@@ -613,7 +613,9 @@ input::placeholder{
         line-height: 24px;
         margin: 0 20px;
     }
-
+    .titulo-pergunta{
+        height: 89px;
+    }
     .titulo-pergunta h3{
         font-size: 19px;
     }
@@ -649,6 +651,37 @@ input::placeholder{
 
     .reiniciar{
         width: 220px;
+    }
+    /*---------------------------------tela 3-------------------*/
+    .tela3-parte-um h2, 
+    .tela3-parte-dois-incial h2, 
+    .tela3-parte-tres h2{
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .container-tela3,
+    .container-tela3 div,
+    .container-tela3 input,
+    .tela3-parte-quatro h2{
+        width: 100%;
+    }
+    .container-tela3{
+        padding: 0px 10px;
+    }
+
+    .botao-prosseguir{
+        width: 320px;
+    }
+    .titulo-criar-perguntas,
+    .input-criar-perguntas,
+    .input-criar-niveis{
+        margin-left: 0px;
+    }
+
+    .sucesso-quizz,
+    .sucesso-quizz img{
+        width: 340px;
     }
 }
 

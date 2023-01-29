@@ -17,7 +17,24 @@ let criarQuizzImagem = document.querySelector('.url-imagem');
 let criarQuizzQntPerguntas = document.querySelector('.qnt-perguntas');
 let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 
+const textoTodasPerguntas = document.querySelectorAll('.texto-pergunta');
+const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
 
+const respostasCorretas = document.querySelectorAll('.resposta-correta');
+const urlImagensObg = document.querySelectorAll('.imagem-pergunta');
+
+const respostaIncorretaObg = document.querySelector('.resposta-incorreta-obg');
+
+const respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
+const respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
+
+const imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
+const imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
+
+const tituloNivel = document.querySelectorAll('.titulo-nivel');
+const acertosNivel = document.querySelectorAll('.acerto-nivel');
+const urlImagensNivel = document.querySelectorAll('.imagem-nivel');
+const descricaoNivel = document.querySelectorAll('.descricao-nivel');
 
 let checagem = [];
 
@@ -27,13 +44,14 @@ let checagemTres = [];
 
 function checaDescricaoNivel() {
     let check = [];
-    const descricaoNivel = document.querySelectorAll('.descricao-nivel');
+    
     for (let i = 0; i < descricaoNivel.length; i++){
         const arrayDescricaoNivel = descricaoNivel[i].value.split('');
         if (arrayDescricaoNivel.length >= 30){
             check.push("OK");
             if (check.length === descricaoNivel.length){
                 checagemTres.push("OK");
+                console.log("descricao nivel ok");
             }
         }
     }
@@ -41,13 +59,15 @@ function checaDescricaoNivel() {
 
 function checaImagemNivel(){
     let check = [];
-    const urlImagensNivel = document.querySelectorAll('.imagem-nivel');
+    
+    
     for (let i = 0; i < urlImagensNivel.length; i++){
       try {
         new URL(urlImagensNivel[i].value)
         check.push("OK");
         if (check.length === urlImagensNivel.length){
             checagemTres.push("OK");
+            console.log("img nivel ok");
         }
     } catch(err) {
         alert ("Insira um URL válido para imagem de nível. Deve ser o endereço de uma imagem.");
@@ -65,59 +85,44 @@ function zeroPorcentoAcerto (porcentagem){
 
 function checaAcertosNivel() {
     let check = [];
-    let check2 = [];
-    // let qntNiveisZeroPorcentoAcerto = [];
-    const arrayNumeros = ["0","1","2","3","4","5","6","7","8","9"];
     let arrayAcertos = [];
-    const acertosNivel = document.querySelectorAll('.acerto-nivel');
+    
+    
     for (let i = 0; i < acertosNivel.length; i++){
         arrayAcertos.push(acertosNivel[i].value);
         console.log(arrayAcertos);
     }
     const acertoZeroPorcento = arrayAcertos.filter(zeroPorcentoAcerto);
     console.log (acertoZeroPorcento);
+
     if (acertoZeroPorcento.length !== 0){
         for (let i = 0; i < acertosNivel.length; i++){
-            const arrayAcertoNivel = acertosNivel[i].value.split('');
-            for (let j = 0; j < arrayAcertoNivel.length; i++){
-                if (arrayNumeros.includes(arrayAcertoNivel[j]) === true){
-                    check.push("OK");
-                    if (arrayAcertoNivel.length === 1 && check.length === 1){
-                        check2.push("OK");
-                    }
-                    if (arrayAcertoNivel.length === 2 && check.length === 2){
-                        check2.push("OK");
-                    }
-                    if (arrayAcertoNivel.length === 3 && check.length === 3){
-                        if (arrayAcertoNivel[0] === 1 && arrayAcertoNivel[1] === 0 && arrayAcertoNivel[2] === 0){
-                          check2.push("OK");  
-                        } else {
-                            alert ("% de acerto mínima inválida. O valor máximo de % de acerto mínima de um nível é 100%.");
-                        }   
-                    }
-                    
-                } else {
-                    alert ("Todos os carcateres da % mínima de acerto de um nível precisam ser números (0 a 100).")
+            if (isNaN(Number(acertosNivel[i].value)) === false && Number(acertosNivel[i].value) >= 0 && Number(acertosNivel[i].value) <= 100){
+                check.push("OK");
+                if (check.length === acertosNivel.length){
+                    checagemTres.push("OK");
+                    console.log("acerto nivel ok");
                 }
+            } else {
+                alert ("Porcentagem de acerto mínima inválida. A % acerto mínima deve ser um número de 0 a 100.");
             }
         }
-        if (check2.length === acertosNivel.length){
-            checagemTres.push("OK");
-        }    
     } else {
-        alert ("Pelo menos um nível deve ter 0% de acerto.")
-    }   
+        alert ("Pelo menos um nível deve ter 0% de acerto.");
+    }
 }
+
 
 function checaTituloNivel () {
     let check = [];
-    const tituloNivel = document.querySelectorAll('.titulo-nivel');
+    
     for (let i = 0; i < tituloNivel.length; i++){
         const arrayTitulo = tituloNivel[i].value.split('');
         if (arrayTitulo.length >= 10){
             check.push("OK");
-            if (check.length === tituloNivel){
+            if (check.length === tituloNivel.length){
                 checagemTres.push("OK");
+                console.log("titulo nivel ok");
             }
         } else {
             alert("Insira um título de nível válido. O título deve possuir pelo menos 10 caracteres.")
@@ -126,7 +131,75 @@ function checaTituloNivel () {
 }
 
 function mandarQuizzServidor() {
-
+    const dadosQuizz =
+    {
+        title: "Título do quizz",
+        image: "https://http.cat/411.jpg",
+        questions: [
+            {
+                title: "Título da pergunta 1",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 2",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 3",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
 }
 
 function mostrarPaginaSucessoQuizz (){
@@ -134,6 +207,7 @@ function mostrarPaginaSucessoQuizz (){
     checaAcertosNivel();
     checaImagemNivel();
     checaDescricaoNivel();
+    console.log(checagemTres);
     if (checagemTres.length === 4){
         tela3Parte4.innerHTML += `
         <h2>
@@ -157,7 +231,7 @@ function mostrarPaginaSucessoQuizz (){
             Voltar para home
         </div>
         `;
-        mandarQuizzServidor();
+        //mandarQuizzServidor();
         //no then colocar:
         tela3Parte3.style.display = "none";
         tela3Parte4.style.display = "initial";
@@ -175,13 +249,8 @@ function mostraCamposNivel (divNivelEdicao){
 
 function checaRepostas () {
     let check = [];
-    const respostasCorretas = document.querySelectorAll('.resposta-correta');
-    const respostaIncorretaObg = document.querySelector('.resposta-incorreta-obg');
-    const respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
-    const respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
-    const imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
-    const imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
-
+    
+    
     for (let i = 0; i < respostasCorretas.length; i++){
         if (respostasCorretas[i].value !== '' && respostaIncorretaObg.value !== ''){
             check.push("OK");
@@ -218,7 +287,7 @@ function checaRepostas () {
 
 function checaURLImagemPergunta (){
     let check = [];
-    const urlImagensObg = document.querySelectorAll('.imagem-pergunta');
+    
     for (let i = 0; i < urlImagensObg.length; i++){
       try {
         new URL(urlImagensObg[i].value)
@@ -254,7 +323,7 @@ function checaHexadecimal(arrayCores){
 
 function checaCorFundoPergunta () {
     let check = [];
-    const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
+    
     console.log (CorFundo);
     for (let i = 0; i < CorFundo.length; i++){
         const corFundoArray = CorFundo[i].value.split('');
@@ -275,7 +344,7 @@ function checaCorFundoPergunta () {
 
 function checaTituloPergunta () {
     let check = [];
-    const textoTodasPerguntas = document.querySelectorAll('.texto-pergunta');
+    
     for (let i = 0; i < textoTodasPerguntas.length; i++){
         const arrayTextoPergunta = textoTodasPerguntas[i].value.split('');
         if (arrayTextoPergunta.length >= 20){

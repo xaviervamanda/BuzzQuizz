@@ -17,14 +17,117 @@ let criarQuizzImagem = document.querySelector('.url-imagem');
 let criarQuizzQntPerguntas = document.querySelector('.qnt-perguntas');
 let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 
+
+
 let checagem = [];
 
 let checagemDois = [];
 
 let checagemTres = [];
 
+function checaDescricaoNivel() {
+    let check = [];
+    const descricaoNivel = document.querySelectorAll('.descricao-nivel');
+    for (let i = 0; i < descricaoNivel.length; i++){
+        const arrayDescricaoNivel = descricaoNivel[i].value.split('');
+        if (arrayDescricaoNivel.length >= 30){
+            check.push("OK");
+            if (check.length === descricaoNivel.length){
+                checagemTres.push("OK");
+            }
+        }
+    }
+}
+
+function checaImagemNivel(){
+    let check = [];
+    const urlImagensNivel = document.querySelectorAll('.imagem-nivel');
+    for (let i = 0; i < urlImagensNivel.length; i++){
+      try {
+        new URL(urlImagensNivel[i].value)
+        check.push("OK");
+        if (check.length === urlImagensNivel.length){
+            checagemTres.push("OK");
+        }
+    } catch(err) {
+        alert ("Insira um URL válido para imagem de nível. Deve ser o endereço de uma imagem.");
+    }      
+    }
+}
+
+function zeroPorcentoAcerto (porcentagem){
+    if (porcentagem.value === "0"){
+        return true
+    } else {
+        return false
+    }
+}
+
+function checaAcertosNivel() {
+    let check = [];
+    let check2 = [];
+    const arrayNumeros = ["0","1","2","3","4","5","6","7","8","9"];
+    let arrayAcertos = [];
+    const acertosNivel = document.querySelectorAll('.acerto-nivel');
+    for (let i = 0; i < acertosNivel.length; i++){
+        arrayAcertos.push(acertosNivel[i].value);
+    }
+    const acertoZeroPorcento = arrayAcertos.filter(zeroPorcentoAcerto);
+    console.log (acertoZeroPorcento);
+    if (acertoZeroPorcento.length !== 0){
+        for (let i = 0; i < acertosNivel.length; i++){
+            const arrayAcertoNivel = acertosNivel[i].value.split('');
+            for (let j = 0; j < arrayAcertoNivel.length; i++){
+                if (arrayNumeros.includes(arrayAcertoNivel[j]) === true){
+                    check.push("OK");
+                    if (arrayAcertoNivel.length === 1 && check.length === 1){
+                        check2.push("OK");
+                    }
+                    if (arrayAcertoNivel.length === 2 && check.length === 2){
+                        check2.push("OK");
+                    }
+                    if (arrayAcertoNivel.length === 3 && check.length === 3){
+                        if (arrayAcertoNivel[0] === 1 && arrayAcertoNivel[1] === 0 && arrayAcertoNivel[2] === 0){
+                          check2.push("OK");  
+                        } else {
+                            alert ("% de acerto mínima inválida. O valor máximo de % de acerto mínima de um nível é 100%.");
+                        }   
+                    }
+                    
+                } else {
+                    alert ("Todos os carcateres da % mínima de acerto de um nível precisam ser números (0 a 100).")
+                }
+            }
+        }
+        if (check2.length === acertosNivel.length){
+            checagemTres.push("OK");
+        }    
+    } else {
+        alert ("Pelo menos um nível deve ter 0% de acerto.")
+    }   
+}
+
+function checaTituloNivel () {
+    let check = [];
+    const tituloNivel = document.querySelectorAll('.titulo-nivel');
+    for (let i = 0; i < tituloNivel.length; i++){
+        const arrayTitulo = tituloNivel[i].value.split('');
+        if (arrayTitulo.length >= 10){
+            check.push("OK");
+            if (check.length === tituloNivel){
+                checagemTres.push("OK");
+            }
+        } else {
+            alert("Insira um título de nível válido. O título deve possuir pelo menos 10 caracteres.")
+        }
+    }
+}
+
+function mandarQuizzServidor() {
+
+}
+
 function mostrarPaginaSucessoQuizz (){
-    //escrever essas funções abaixo de acordo com os requisitos 'níveis do quizz' dentro de 'criação do quizz'
     checaTituloNivel ();
     checaAcertosNivel();
     checaImagemNivel();
@@ -39,7 +142,7 @@ function mostrarPaginaSucessoQuizz (){
             <img src="${criarQuizzImagem.value}">
             <div class="gradiente"></div>
             <div class="titulo-quizz-sucesso">
-                <p>${criarQuizzTitulo}</p>
+                <p>${criarQuizzTitulo.value}</p>
             </div>
             
         </div>
@@ -52,7 +155,12 @@ function mostrarPaginaSucessoQuizz (){
             Voltar para home
         </div>
         `;
-    }
+        mandarQuizzServidor();
+        //no then colocar:
+        tela3Parte3.style.display = "none";
+        tela3Parte4.style.display = "initial";
+
+    }   
 
 }
 
@@ -77,6 +185,7 @@ function checaRepostas () {
             check.push("OK");
             if (check.length === respostasCorretas.length){
               checagemDois.push("OK");
+              console.log(checagemDois);
               console.log("respostas ok")  
             }
         } else{
@@ -114,6 +223,7 @@ function checaURLImagemPergunta (){
         check.push("OK");
         if (check.length === urlImagensObg.length){
             checagemDois.push("OK");
+            console.log(checagemDois);
             console.log("imagem ok")
         }
     } catch(err) {
@@ -139,15 +249,22 @@ function checaHexadecimal(arrayCores){
     }
     return false;
 }
+
 function checaCorFundoPergunta () {
+    let check = [];
     const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
     console.log (CorFundo);
     for (let i = 0; i < CorFundo.length; i++){
         const corFundoArray = CorFundo[i].value.split('');
         console.log(corFundoArray);
         if (checaHexadecimal(corFundoArray)){
-                checagemDois.push("OK");
-                console.log("cor ok");
+                check.push("OK");
+                if (check.length === CorFundo.length){
+                    checagemDois.push("OK");
+                    console.log(checagemDois);
+                    console.log("cor ok");
+                }
+                ;
         } else {
             alert ("Insira uma cor de fundo de pergunta válida. A cor deve começar com # seguida de 6 caracteres de números ou letras de A a F.")
         }
@@ -163,6 +280,7 @@ function checaTituloPergunta () {
             check.push("OK");
             if (check.length === textoTodasPerguntas.length){
               checagemDois.push("OK");
+              console.log(checagemDois);
               console.log("titulo ok"); 
             }    
         } else {
@@ -195,16 +313,16 @@ function mostrarPaginaCriacaoNiveis(){
                         Nível ${(i + 1)}
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="Título do nível">
+                        <input class="titulo-nivel" type="text"  placeholder="Título do nível">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="% acerto mínima">
+                        <input class="acerto-nivel" type="text"  placeholder="% acerto mínima">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="URL da imagem do nível">
+                        <input class="imagem-nivel" type="text"  placeholder="URL da imagem do nível">
                     </div>
                     <div class="input-criar-niveis tamanho-input">
-                        <input type="text"  placeholder="Descrição do nível">
+                        <input class="descricao-nivel" type="text"  placeholder="Descrição do nível">
                     </div>
                 </div>
                 `;  
@@ -220,16 +338,16 @@ function mostrarPaginaCriacaoNiveis(){
                         Nível ${(i + 1)}
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="Título do nível">
+                        <input class="titulo-nivel" type="text"  placeholder="Título do nível">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="% acerto mínima">
+                        <input class="acerto-nivel" type="text"  placeholder="% acerto mínima">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="URL da imagem do nível">
+                        <input class="imagem-nivel" type="text"  placeholder="URL da imagem do nível">
                     </div>
                     <div class="input-criar-niveis tamanho-input">
-                        <input type="text"  placeholder="Descrição do nível">
+                        <input class="descricao-nivel" type="text"  placeholder="Descrição do nível">
                     </div>
                 </div>
 
@@ -249,16 +367,16 @@ function mostrarPaginaCriacaoNiveis(){
                         Nível ${(i + 1)}
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="Título do nível">
+                        <input class="titulo-nivel" type="text"  placeholder="Título do nível">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="% acerto mínima">
+                        <input class="acerto-nivel" type="text"  placeholder="% acerto mínima">
                     </div>
                     <div class="input-criar-niveis">
-                        <input type="text"  placeholder="URL da imagem do nível">
+                        <input class="imagem-nivel" type="text"  placeholder="URL da imagem do nível">
                     </div>
                     <div class="input-criar-niveis tamanho-input">
-                        <input type="text"  placeholder="Descrição do nível">
+                        <input class="descricao-nivel" type="text"  placeholder="Descrição do nível">
                     </div>
                 </div>
                 `;    

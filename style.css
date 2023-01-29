@@ -613,7 +613,9 @@ input::placeholder{
         line-height: 24px;
         margin: 0 20px;
     }
-
+    .titulo-pergunta{
+        height: 89px;
+    }
     .titulo-pergunta h3{
         font-size: 19px;
     }

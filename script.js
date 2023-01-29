@@ -27,33 +27,108 @@ function mostraCamposNivel (divNivelEdicao){
     divCamposNivel.style.display = "flex";
 }
 
-function checaRespostas (){
-    checagemDois.push("OK");
-}
+function checaRepostas () {
+    let check = [];
+    const respostasCorretas = document.querySelectorAll('.resposta-correta');
+    const respostaIncorretaObg = document.querySelector('.resposta-incorreta-obg');
+    const respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
+    const respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
+    const imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
+    const imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
 
-function checaTextoRepostas () {
-    checagemDois.push("OK");
+    for (let i = 0; i < respostasCorretas.length; i++){
+        if (respostasCorretas[i].value !== '' && respostaIncorretaObg.value !== ''){
+            check.push("OK");
+            if (check.length === respostasCorretas.length){
+              checagemDois.push("OK");
+              console.log("respostas ok")  
+            }
+        } else{
+            alert("Todas as perguntas devem possuir uma resposta correta e incorreta válida. Preencha esses campos.")
+        }
+        if (respostaIncorretaOptativa2.value !== '' && imagemRespostaIncOpt2.value === ''){
+            alert ("A resposta incorreta 2 deve ter uma imagem. Insira um URL de imagem válido.")
+        }
+        if (respostaIncorretaOptativa3.value !== '' && imagemRespostaIncOpt3.value === ''){
+            alert ("A resposta incorreta 3 deve ter uma imagem. Insira um URL de imagem válido.")
+        }
+        if (respostaIncorretaOptativa2.value !== '' && imagemRespostaIncOpt2.value !== ''){
+            try {
+                new URL(imagemRespostaIncOpt2.value)
+            } catch(err) {
+                alert ("Insira um URL válido na resposta incorreta 2. Deve ser o endereço de uma imagem.");
+            }       
+        }
+        if (respostaIncorretaOptativa3.value !== '' && imagemRespostaIncOpt3.value !== ''){
+            try {
+                new URL(imagemRespostaIncOpt3.value)
+            } catch(err) {
+                alert ("Insira um URL válido na resposta incorreta 3. Deve ser o endereço de uma imagem.");
+            }       
+        }
+    }
 }
 
 function checaURLImagemPergunta (){
-    try {
-        new URL(criarQuizzImagem.value)
-        checagemDois.push("OK");
+    let check = [];
+    const urlImagensObg = document.querySelectorAll('.imagem-pergunta');
+    for (let i = 0; i < urlImagensObg.length; i++){
+      try {
+        new URL(urlImagensObg[i].value)
+        check.push("OK");
+        if (check.length === urlImagensObg.length){
+            checagemDois.push("OK");
+            console.log("imagem ok")
+        }
     } catch(err) {
         alert ("Insira um URL válido. Deve ser o endereço de uma imagem.");
-    }    
+    }      
+    }
+    
+}
+
+function checaCorFundoPergunta () {
+    const arryLetras = ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+    const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
+    console.log (CorFundo);
+    for (let i = 0; i < CorFundo.length; i++){
+        const corFundoArray = CorFundo[i].value.split('');
+        console.log(corFundoArray);
+        if (corFundoArray[0] === "#" && corFundoArray.length === 7){
+            if (arryLetras.includes(corFundoArray[1]) === true && arryLetras.includes(corFundoArray[2]) === true && arryLetras.includes(corFundoArray[3]) === true && arryLetras.includes(corFundoArray[4]) === true && arryLetras.includes(corFundoArray[5]) === true && arryLetras.includes(corFundoArray[6]) === true && arryLetras.includes(corFundoArray[7]) === true){
+                checagemDois.push("OK");
+                console.log("cor ok")
+            }
+        } else {
+            alert ("Insira uma cor de fundo de pergunta válida. A cor deve começar com # seguida de 6 caracteres de números ou letras de A a F.")
+        }
+    }
 }
 
 function checaTituloPergunta () {
-    checagemDois.push("OK");
+    let check = [];
+    const textoTodasPerguntas = document.querySelectorAll('.texto-pergunta');
+    for (let i = 0; i < textoTodasPerguntas.length; i++){
+        const arrayTextoPergunta = textoTodasPerguntas[i].value.split('');
+        if (arrayTextoPergunta.length >= 20){
+            check.push("OK");
+            if (check.length === textoTodasPerguntas.length){
+              checagemDois.push("OK");
+              console.log("titulo ok"); 
+            }    
+        } else {
+            alert ("Insira um texto de pergunta válido. O texto deve ter no mínimo 20 caracteres.")
+        }
+    }
+    
 }
 
 function mostrarPaginaCriacaoNiveis(){
     checagemDois = [];
     checaTituloPergunta ();
+    checaCorFundoPergunta ();
     checaURLImagemPergunta ();
-    checaTextoRepostas ();
-    checaRespostas ();
+    checaRepostas ();
     console.log (checagemDois);
     if (checagemDois.length === 4){
         for (i = 0; i < criarQuizzQntNiveis.value; i++){
@@ -222,91 +297,91 @@ function mostrarPaginaCriacaoPerguntas() {
                         Pergunta ${(i + 1)}
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Texto da pergunta">
+                        <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Cor de fundo da pergunta">
+                        <input class="cor-fundo-pergunta" "type="text" placeholder="Cor de fundo da pergunta">
                     </div>
                     <div class="titulo-criar-perguntas">
                         Resposta correta
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Resposta correta">
+                        <input class="resposta-correta" type="text" placeholder="Resposta correta">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="URL da imagem">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem">
                     </div>
                     <div class="titulo-criar-perguntas">
                         Respostas incorretas
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Resposta incorreta 1">
+                        <input class="resposta-incorreta-obg" type="text" placeholder="Resposta incorreta 1">
                     </div>
                     <div class="input-criar-perguntas margem-especial">
-                        <input type="text" placeholder="URL da imagem 1">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem 1">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Resposta incorreta 2">
+                        <input class="resposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
                     </div>
                     <div class="input-criar-perguntas margem-especial">
-                        <input type="text" placeholder="URL da imagem 2">
+                        <input class="imagem-pergunta2" type="text" placeholder="URL da imagem 2">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="Resposta incorreta 3">
+                        <input class="resposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
                     </div>
                     <div class="input-criar-perguntas">
-                        <input type="text" placeholder="URL da imagem 3">
+                        <input class="imagem-pergunta3" type="text" placeholder="URL da imagem 3">
                     </div>
                 </div>
                 `;  
             } else if (i === (criarQuizzQntPerguntas.value - 1)) {
                 tela3Parte2Inicial.innerHTML += `
                 <div class="caixa-pergunta container-tela3" onclick="mostraCamposPergunta (this)">
-                  <p>Pergunta ${(i + 1)}</p>
-                  <ion-icon name="create-outline"></ion-icon>
-                </div>
-                <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
-                      <div class="titulo-criar-perguntas">
-                          Pergunta ${(i + 1)}
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text"  placeholder="Texto da pergunta">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text"  placeholder="Cor de fundo da pergunta">
-                      </div>
-                      <div class="titulo-criar-perguntas">
-                          Resposta correta
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta correta">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="URL da imagem">
-                      </div>
-                      <div class="titulo-criar-perguntas">
-                          Respostas incorretas
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 1">
-                      </div>
-                      <div class="input-criar-perguntas margem-especial">
-                          <input type="text" placeholder="URL da imagem 1">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 2">
-                      </div>
-                      <div class="input-criar-perguntas margem-especial">
-                          <input type="text" placeholder="URL da imagem 2">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 3">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="URL da imagem 3">
-                      </div>
+                    <p>Pergunta ${(i + 1)}</p>
+                    <ion-icon name="create-outline"></ion-icon>
                 </div>
 
+                <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
+                    <div class="titulo-criar-perguntas">
+                        Pergunta ${(i + 1)}
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="cor-fundo-pergunta" "type="text" placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Resposta correta
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-correta" type="text" placeholder="Resposta correta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Respostas incorretas
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta-obg" type="text" placeholder="Resposta incorreta 1">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem 1">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input class="imagem-pergunta2" type="text" placeholder="URL da imagem 2">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="imagem-pergunta3" type="text" placeholder="URL da imagem 3">
+                    </div>
+                </div>
                 <div class="botao-prosseguir" onclick="mostrarPaginaCriacaoNiveis()">
                     <button>Prosseguir para criar níveis</button>
                 </div>
@@ -314,49 +389,50 @@ function mostrarPaginaCriacaoPerguntas() {
             } else {
                 tela3Parte2Inicial.innerHTML += `
                 <div class="caixa-pergunta container-tela3" onclick="mostraCamposPergunta (this)">
-                  <p>Pergunta ${(i + 1)}</p>
-                  <ion-icon name="create-outline"></ion-icon>
+                    <p>Pergunta ${(i + 1)}</p>
+                    <ion-icon name="create-outline"></ion-icon>
                 </div>
+
                 <div data-name="Pergunta ${(i + 1)}" class="container-tela3 margem-container3-parte-dois">
-                      <div class="titulo-criar-perguntas">
-                          Pergunta ${(i + 1)}
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text"  placeholder="Texto da pergunta">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text"  placeholder="Cor de fundo da pergunta">
-                      </div>
-                      <div class="titulo-criar-perguntas">
-                          Resposta correta
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta correta">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="URL da imagem">
-                      </div>
-                      <div class="titulo-criar-perguntas">
-                          Respostas incorretas
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 1">
-                      </div>
-                      <div class="input-criar-perguntas margem-especial">
-                          <input type="text" placeholder="URL da imagem 1">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 2">
-                      </div>
-                      <div class="input-criar-perguntas margem-especial">
-                          <input type="text" placeholder="URL da imagem 2">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="Resposta incorreta 3">
-                      </div>
-                      <div class="input-criar-perguntas">
-                          <input type="text" placeholder="URL da imagem 3">
-                      </div>
+                    <div class="titulo-criar-perguntas">
+                        Pergunta ${(i + 1)}
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="cor-fundo-pergunta" "type="text" placeholder="Cor de fundo da pergunta">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Resposta correta
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-correta" type="text" placeholder="Resposta correta">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem">
+                    </div>
+                    <div class="titulo-criar-perguntas">
+                        Respostas incorretas
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta-obg" type="text" placeholder="Resposta incorreta 1">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input class="imagem-pergunta" type="text" placeholder="URL da imagem 1">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
+                    </div>
+                    <div class="input-criar-perguntas margem-especial">
+                        <input class="imagem-pergunta2" type="text" placeholder="URL da imagem 2">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="resposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
+                    </div>
+                    <div class="input-criar-perguntas">
+                        <input class="imagem-pergunta3" type="text" placeholder="URL da imagem 3">
+                    </div>
                 </div>
                 `;    
             }

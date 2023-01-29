@@ -56,7 +56,7 @@ function checaImagemNivel(){
 }
 
 function zeroPorcentoAcerto (porcentagem){
-    if (porcentagem.value === "0"){
+    if (porcentagem === "0"){
         return true
     } else {
         return false
@@ -66,11 +66,13 @@ function zeroPorcentoAcerto (porcentagem){
 function checaAcertosNivel() {
     let check = [];
     let check2 = [];
+    // let qntNiveisZeroPorcentoAcerto = [];
     const arrayNumeros = ["0","1","2","3","4","5","6","7","8","9"];
     let arrayAcertos = [];
     const acertosNivel = document.querySelectorAll('.acerto-nivel');
     for (let i = 0; i < acertosNivel.length; i++){
         arrayAcertos.push(acertosNivel[i].value);
+        console.log(arrayAcertos);
     }
     const acertoZeroPorcento = arrayAcertos.filter(zeroPorcentoAcerto);
     console.log (acertoZeroPorcento);

@@ -525,6 +525,79 @@ input::placeholder{
     margin-top: 13px;
 }
 
+/* ---------------------------------------- Conteúdo da página ----------------------------------- */
+/* ---------------------------------------- Tela 3.4 ----------------------------------- */
+
+.tela3-parte-quatro h2 {
+    margin-top: 140px;
+}
+
+.sucesso-quizz {
+    width: 500px;
+    height: 266px;
+    margin: 0px auto;
+    margin-top: 46px;
+    position: relative;
+}
+
+.sucesso-quizz img{
+    width: 500px;
+    height: 266px;
+    border-radius: 5px;
+}
+
+.titulo-quizz-sucesso {
+    width: 309px;
+    height: 54px;
+    position: absolute;
+    bottom: 10px;
+    left:20px;
+}
+
+.sucesso-quizz p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;  
+}
+
+.botao-acessar-quizz {
+    width: 220.32px;
+    height: 44px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    margin: 0px auto;
+    margin-top: 45px;
+    margin-bottom: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    color: #FFF5F4;
+}
+
+.botao-voltar-home {
+    width: 219.64px;
+    height: 44px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    color: #818181;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+}
+
+
 
 /* ---------------------------------------- MediaQuery ----------------------------------- */
 

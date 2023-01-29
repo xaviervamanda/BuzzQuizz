@@ -123,18 +123,31 @@ function checaURLImagemPergunta (){
     
 }
 
-function checaCorFundoPergunta () {
+function checaHexadecimal(arrayCores){
     const arryLetras = ["A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9"];
+    let contador = 0;
+    if (arrayCores[0] === "#" && arrayCores.length === 7){
+        //console.log('entrou aqui')
+        for(let i = 1; i < arrayCores.length; i++){
+            //console.log(arryLetras.includes(arrayCores[i]));
+            if(arryLetras.includes(arrayCores[i])===true)
+                contador++;
+        }
+        console.log(contador);
+        if(contador === 6)
+            return true;
+    }
+    return false;
+}
+function checaCorFundoPergunta () {
     const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
     console.log (CorFundo);
     for (let i = 0; i < CorFundo.length; i++){
         const corFundoArray = CorFundo[i].value.split('');
         console.log(corFundoArray);
-        if (corFundoArray[0] === "#" && corFundoArray.length === 7){
-            if (arryLetras.includes(corFundoArray[1]) === true && arryLetras.includes(corFundoArray[2]) === true && arryLetras.includes(corFundoArray[3]) === true && arryLetras.includes(corFundoArray[4]) === true && arryLetras.includes(corFundoArray[5]) === true && arryLetras.includes(corFundoArray[6]) === true && arryLetras.includes(corFundoArray[7]) === true){
+        if (checaHexadecimal(corFundoArray)){
                 checagemDois.push("OK");
-                console.log("cor ok")
-            }
+                console.log("cor ok");
         } else {
             alert ("Insira uma cor de fundo de pergunta válida. A cor deve começar com # seguida de 6 caracteres de números ou letras de A a F.")
         }
@@ -614,7 +627,7 @@ function exibirQuizz(quizz) {
         document.querySelector('.perguntas-tela2').innerHTML = quiz;
 
         dadosQuizzServidor.levels.forEach(nivel => niveis.push(nivel));
-        setTimeout(() => document.querySelector('.pergunta:first-child').scrollIntoView(),2000);
+        //setTimeout(() => document.querySelector('.pergunta:first-child').scrollIntoView(),2000);
     });
 
     promise.catch(() => {

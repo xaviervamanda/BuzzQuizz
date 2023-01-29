@@ -10,6 +10,7 @@ const tela1 = document.querySelector('.tela1');
 const tela3Parte1 = document.querySelector ('.tela3-parte-um');
 const tela3Parte2Inicial = document.querySelector('.tela3-parte-dois-incial');
 const tela3Parte3 = document.querySelector('.tela3-parte-tres');
+const tela3Parte4 = document.querySelector('.tela3-parte-quatro');
 
 let criarQuizzTitulo = document.querySelector('.titulo-quizz');
 let criarQuizzImagem = document.querySelector('.url-imagem');
@@ -19,6 +20,41 @@ let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 let checagem = [];
 
 let checagemDois = [];
+
+let checagemTres = [];
+
+function mostrarPaginaSucessoQuizz (){
+    //escrever essas funções abaixo de acordo com os requisitos 'níveis do quizz' dentro de 'criação do quizz'
+    checaTituloNivel ();
+    checaAcertosNivel();
+    checaImagemNivel();
+    checaDescricaoNivel();
+    if (checagemTres.length === 4){
+        tela3Parte4.innerHTML += `
+        <h2>
+            Seu quizz está pronto!
+        </h2>
+
+        <div class="sucesso-quizz">
+            <img src="${criarQuizzImagem.value}">
+            <div class="gradiente"></div>
+            <div class="titulo-quizz-sucesso">
+                <p>${criarQuizzTitulo}</p>
+            </div>
+            
+        </div>
+
+        <div class="botao-acessar-quizz">
+            Acessar Quizz
+        </div>
+
+        <div class="botao-voltar-home">
+            Voltar para home
+        </div>
+        `;
+    }
+
+}
 
 function mostraCamposNivel (divNivelEdicao){
     divNivelEdicao.style.display = "none";

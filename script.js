@@ -212,14 +212,14 @@ function mandarQuizzServidor() {
             ]
         })
     }
-    if (respostaIncorretaOptativa2 !== null){
+    if (respostaIncorretaOptativa2.value !== ''){
         dadosQuizz.questions[0].answers.push({
             text: `${respostaIncorretaOptativa2.value}`,
             image: `${imagemRespostaIncOpt2.value}`,
             isCorrectAnswer: false    
         });
         }
-    if (respostaIncorretaOptativa3 !== null){
+    if (respostaIncorretaOptativa3.value !== ''){
         dadosQuizz.questions[0].answers.push({
             text: `${respostaIncorretaOptativa3.value}`,
             image: `${imagemRespostaIncOpt3.value}`,
@@ -236,6 +236,9 @@ function mandarQuizzServidor() {
         });
     }
     console.log (dadosQuizz);
+    console.log (dadosQuizz.questions);
+    console.log (dadosQuizz.questions.answers);
+    console.log (dadosQuizz.levels);
     const promise = axios.post (`${url}`, dadosQuizz);
     promise.then (response => {
         console.log (response); 

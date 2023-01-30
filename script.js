@@ -857,7 +857,7 @@ function getQuizzes (){
         listaQuizzes = '';
         listaQuizzesUsuario = '';
         for (let i = 0; i < dadosQuizzesServidor.length; i++) {
-            if(!listaId.includes(dadosQuizzesServidor[i].id))
+            if(listaId == null || !listaId.includes(dadosQuizzesServidor[i].id))
                 listaQuizzes += `
                 <div id="${dadosQuizzesServidor[i].id}" onclick="exibirQuizz(this)" class="quizz">
                     <img src="${dadosQuizzesServidor[i].image}">
@@ -875,6 +875,8 @@ function getQuizzes (){
                 `;
     }
     document.querySelector('.container-quizzes').innerHTML += listaQuizzes;
+    document.querySelector('.quizzes-usuario').innerHTML = listaQuizzesUsuario;
+    mostraQuizzesUsuario();
     });
 
     promise.catch ( () => {
@@ -902,4 +904,17 @@ function home(){
     window.location.reload();
 }
 
-getQuizzes ();
+function mostraQuizzesUsuario(){
+    console.log(listaQuizzesUsuario);
+    if(listaQuizzesUsuario === ''){
+        tela1.querySelector('.primeiro-container').style.display = 'flex';
+        tela1.querySelector('.usuario').style.display = 'none';
+        
+    }else{
+        console.log(listaQuizzesUsuario);
+        document.querySelector('.primeiro-container').style.display = 'none';
+        document.querySelector('.usuario').style.display = 'flex';
+    }
+}
+
+getQuizzes();

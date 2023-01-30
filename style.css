@@ -46,7 +46,7 @@ header h1 {
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
     margin: 146px auto;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -91,6 +91,28 @@ header h1 {
     color: #EC362D;
 }
 
+.usuario{
+    margin: 80px auto;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 1065px;
+}
+
+.usuario ion-icon{
+    color: #EC362D;
+    font-size: 20px;
+    position: absolute;
+    top: 0px;;
+    left: 130px;
+}
+
+.quizzes-usuario{
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 
 /* ------------Seção todos os quizzes-----------*/
 
@@ -108,7 +130,7 @@ header h1 {
     overflow-y: scroll;
 }
 
-.container-quizzes::-webkit-scrollbar {
+.container-quizzes::-webkit-scrollbar, .quizzes-usuario::-webkit-scrollbar  {
     display: none;
 }
 
@@ -155,6 +177,7 @@ header h1 {
     height: 23px;
     margin: 0px auto;
     margin-top: 77px;
+    position: relative;
 }
 
 .titulo-segundo-container p{
@@ -165,7 +188,6 @@ header h1 {
     line-height: 23px;
     color: #000000;
 }
-
 
 
 /* ---------------------------------------- Conteúdo da página ----------------------------------- */
@@ -660,13 +682,15 @@ input::placeholder{
         width: 100%;
     }
 
+    .usuario,
+    .quizzes-usuario,
     .container-tela3,
     .container-tela3 div,
     .container-tela3 input,
     .tela3-parte-quatro h2{
         width: 100%;
     }
-    .container-tela3{
+    .container-tela3,.quizzes-usuario{
         padding: 0px 10px;
     }
 
@@ -680,7 +704,8 @@ input::placeholder{
     }
 
     .sucesso-quizz,
-    .sucesso-quizz img{
+    .sucesso-quizz img,
+    .quizzes-usuario img{
         width: 340px;
     }
 }

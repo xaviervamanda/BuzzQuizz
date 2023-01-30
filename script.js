@@ -17,24 +17,24 @@ let criarQuizzImagem = document.querySelector('.url-imagem');
 let criarQuizzQntPerguntas = document.querySelector('.qnt-perguntas');
 let criarQuizzQntNiveis = document.querySelector('.qnt-niveis');
 
-const textoTodasPerguntas = document.querySelectorAll('.texto-pergunta');
-const CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
+let textoTodasPerguntas;
+let CorFundo;
 
-const respostasCorretas = document.querySelectorAll('.resposta-correta');
-const urlImagensObg = document.querySelectorAll('.imagem-pergunta');
+let respostasCorretas;
+let urlImagensObg;
 
-const respostaIncorretaObg = document.querySelector('.resposta-incorreta-obg');
+let respostaIncorretaObg;
 
-const respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
-const respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
+let respostaIncorretaOptativa2;
+let respostaIncorretaOptativa3;
 
-const imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
-const imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
+let imagemRespostaIncOpt2;
+let imagemRespostaIncOpt3;
 
-const tituloNivel = document.querySelectorAll('.titulo-nivel');
-const acertosNivel = document.querySelectorAll('.acerto-nivel');
-const urlImagensNivel = document.querySelectorAll('.imagem-nivel');
-const descricaoNivel = document.querySelectorAll('.descricao-nivel');
+let tituloNivel;
+let acertosNivel;
+let urlImagensNivel;
+let descricaoNivel;
 
 let checagem = [];
 
@@ -44,7 +44,8 @@ let checagemTres = [];
 
 function checaDescricaoNivel() {
     let check = [];
-    
+    descricaoNivel = document.querySelectorAll('.descricao-nivel');
+
     for (let i = 0; i < descricaoNivel.length; i++){
         const arrayDescricaoNivel = descricaoNivel[i].value.split('');
         if (arrayDescricaoNivel.length >= 30){
@@ -59,7 +60,7 @@ function checaDescricaoNivel() {
 
 function checaImagemNivel(){
     let check = [];
-    
+    urlImagensNivel = document.querySelectorAll('.imagem-nivel');
     
     for (let i = 0; i < urlImagensNivel.length; i++){
       try {
@@ -86,7 +87,7 @@ function zeroPorcentoAcerto (porcentagem){
 function checaAcertosNivel() {
     let check = [];
     let arrayAcertos = [];
-    
+    acertosNivel = document.querySelectorAll('.acerto-nivel');
     
     for (let i = 0; i < acertosNivel.length; i++){
         arrayAcertos.push(acertosNivel[i].value);
@@ -115,7 +116,7 @@ function checaAcertosNivel() {
 
 function checaTituloNivel () {
     let check = [];
-    
+    tituloNivel = document.querySelectorAll('.titulo-nivel');
     for (let i = 0; i < tituloNivel.length; i++){
         const arrayTitulo = tituloNivel[i].value.split('');
         if (arrayTitulo.length >= 10){
@@ -130,129 +131,15 @@ function checaTituloNivel () {
     }
 }
 
-function mandarQuizzServidor() {
-    const dadosQuizz =
-    {
-        title: "Título do quizz",
-        image: "https://http.cat/411.jpg",
-        questions: [
-            {
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [
-            {
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
-    }
-}
-
-function mostrarPaginaSucessoQuizz (){
-    checaTituloNivel ();
-    checaAcertosNivel();
-    checaImagemNivel();
-    checaDescricaoNivel();
-    console.log(checagemTres);
-    if (checagemTres.length === 4){
-        tela3Parte4.innerHTML += `
-        <h2>
-            Seu quizz está pronto!
-        </h2>
-
-        <div class="sucesso-quizz">
-            <img src="${criarQuizzImagem.value}">
-            <div class="gradiente"></div>
-            <div class="titulo-quizz-sucesso">
-                <p>${criarQuizzTitulo.value}</p>
-            </div>
-            
-        </div>
-
-        <div class="botao-acessar-quizz">
-            Acessar Quizz
-        </div>
-
-        <div class="botao-voltar-home">
-            Voltar para home
-        </div>
-        `;
-        //mandarQuizzServidor();
-        //no then colocar:
-        tela3Parte3.style.display = "none";
-        tela3Parte4.style.display = "initial";
-
-    }   
-
-}
-
-function mostraCamposNivel (divNivelEdicao){
-    divNivelEdicao.style.display = "none";
-    const paragrafoDaDiv = divNivelEdicao.querySelector('p');
-    const divCamposNivel = document.querySelector(`div[data-name="${paragrafoDaDiv.innerHTML}"]`);
-    divCamposNivel.style.display = "flex";
-}
-
 function checaRepostas () {
     let check = [];
-    
+    respostasCorretas = document.querySelectorAll('.resposta-correta');
+    respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
+    respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
+    respostaIncorretaObg = document.querySelectorAll('.resposta-incorreta-obg');
     
     for (let i = 0; i < respostasCorretas.length; i++){
-        if (respostasCorretas[i].value !== '' && respostaIncorretaObg.value !== ''){
+        if (respostasCorretas[i].value !== '' && respostaIncorretaObg[i].value !== ''){
             check.push("OK");
             if (check.length === respostasCorretas.length){
               checagemDois.push("OK");
@@ -285,9 +172,113 @@ function checaRepostas () {
     }
 }
 
+function mandarQuizzServidor() {
+    const dadosQuizz =
+    {
+        title: `${criarQuizzTitulo.value}`,
+        image: `${criarQuizzImagem.value}`,
+        questions: [],
+        levels: []
+    }
+    for (let i = 0; i < textoTodasPerguntas.length; i++){
+        dadosQuizz.questions.push({
+            title: `${textoTodasPerguntas[i].value}`,
+            color: `${CorFundo[i].value}`,
+            answers: [
+                {
+                    text: `${respostasCorretas[i].value}`,
+                    image: `${urlImagensObg[i].value}`,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: `${respostaIncorretaObg[i].value}`,
+                    image: `${urlImagensObg[i+1].value}`,
+                    isCorrectAnswer: false
+                }
+            ]
+        })
+    }
+    if (respostaIncorretaOptativa2 !== null){
+        dadosQuizz.questions[0].answers.push({
+            text: `${respostaIncorretaOptativa2.value}`,
+            image: `${imagemRespostaIncOpt2.value}`,
+            isCorrectAnswer: false    
+        });
+        }
+    if (respostaIncorretaOptativa3 !== null){
+        dadosQuizz.questions[0].answers.push({
+            text: `${respostaIncorretaOptativa3.value}`,
+            image: `${imagemRespostaIncOpt3.value}`,
+            isCorrectAnswer: false    
+        });
+    }
+    for (let j = 0; i < tituloNivel.length; j++){
+        dadosQuizz.levels.push({
+            title: `${tituloNivel[i].value}`,
+            image: `${urlImagensNivel[i].value}`,
+            text: `${descricaoNivel[i].value}`,
+            minValue: Number(`${acertosNivel[i].value}`)
+        });
+    }
+    console.log (dadosQuizz);
+    const promise = axios.post (`${url}`, dadosQuizz);
+    promise.then (response => {
+        console.log (response);
+        tela3Parte3.style.display = "none";
+        tela3Parte4.style.display = "initial";
+    });
+    promise.catch ( () => alert ("Ocorreu um erro ao enviar seu quizz para o servidor. Tente novamente."));
+    
+}
+
+function mostrarPaginaSucessoQuizz (){
+    checaTituloNivel ();
+    checaAcertosNivel();
+    checaImagemNivel();
+    checaDescricaoNivel();
+    console.log(checagemTres);
+    if (checagemTres.length === 4){
+        tela3Parte4.innerHTML += `
+        <h2>
+            Seu quizz está pronto!
+        </h2>
+
+        <div class="sucesso-quizz">
+            <img src="${criarQuizzImagem.value}">
+            <div class="gradiente"></div>
+            <div class="titulo-quizz-sucesso">
+                <p>${criarQuizzTitulo.value}</p>
+            </div>
+            
+        </div>
+
+        <div class="botao-acessar-quizz">
+            Acessar Quizz
+        </div>
+
+        <div class="botao-voltar-home">
+            Voltar para home
+        </div>
+        `;
+        mandarQuizzServidor();
+    }   
+
+}
+
+function mostraCamposNivel (divNivelEdicao){
+    divNivelEdicao.style.display = "none";
+    const paragrafoDaDiv = divNivelEdicao.querySelector('p');
+    const divCamposNivel = document.querySelector(`div[data-name="${paragrafoDaDiv.innerHTML}"]`);
+    divCamposNivel.style.display = "flex";
+}
+
+
+
 function checaURLImagemPergunta (){
     let check = [];
-    
+    urlImagensObg = document.querySelectorAll('.imagem-pergunta');
+    imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
+    imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
     for (let i = 0; i < urlImagensObg.length; i++){
       try {
         new URL(urlImagensObg[i].value)
@@ -299,9 +290,8 @@ function checaURLImagemPergunta (){
         }
     } catch(err) {
         alert ("Insira um URL válido. Deve ser o endereço de uma imagem.");
-    }      
+    }    
     }
-    
 }
 
 function checaHexadecimal(arrayCores){
@@ -323,7 +313,7 @@ function checaHexadecimal(arrayCores){
 
 function checaCorFundoPergunta () {
     let check = [];
-    
+    CorFundo = document.querySelectorAll('.cor-fundo-pergunta');
     console.log (CorFundo);
     for (let i = 0; i < CorFundo.length; i++){
         const corFundoArray = CorFundo[i].value.split('');
@@ -344,7 +334,7 @@ function checaCorFundoPergunta () {
 
 function checaTituloPergunta () {
     let check = [];
-    
+    textoTodasPerguntas = document.querySelectorAll('.texto-pergunta');
     for (let i = 0; i < textoTodasPerguntas.length; i++){
         const arrayTextoPergunta = textoTodasPerguntas[i].value.split('');
         if (arrayTextoPergunta.length >= 20){

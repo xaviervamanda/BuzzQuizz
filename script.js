@@ -41,7 +41,6 @@ let checagem = [];
 let checagemDois = [];
 
 let checagemTres = [];
-
 let responseId;
 
 function checaDescricaoNivel() {
@@ -173,6 +172,18 @@ function checaRepostas () {
         }
     }
 }
+function guardarId(id){
+    let listaSerializada = localStorage.getItem('listaId');
+    
+    if(listaSerializada === null)
+        localStorage.setItem('listaId','[]');
+
+    listaSerializada = localStorage.getItem('listaId');
+    let lista = JSON.parse(listaSerializada);
+    lista.push(id);
+    listaSerializada = JSON.stringify(lista);
+    localStorage.setItem('listaId',listaSerializada);
+}
 
 function mandarQuizzServidor() {
     const dadosQuizz =
@@ -229,6 +240,7 @@ function mandarQuizzServidor() {
         console.log (response); 
         responseId = response.data.id;
         console.log(responseId);
+        guardarId(responseId);
         tela3Parte3.style.display = "none";
         tela3Parte4.style.display = "initial";
        

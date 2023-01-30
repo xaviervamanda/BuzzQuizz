@@ -42,6 +42,8 @@ let checagemDois = [];
 
 let checagemTres = [];
 
+let responseId;
+
 function checaDescricaoNivel() {
     let check = [];
     descricaoNivel = document.querySelectorAll('.descricao-nivel');
@@ -212,7 +214,8 @@ function mandarQuizzServidor() {
             isCorrectAnswer: false    
         });
     }
-    for (let j = 0; i < tituloNivel.length; j++){
+    console.log(tituloNivel);
+    for (let i = 0; i < tituloNivel.length; i++){
         dadosQuizz.levels.push({
             title: `${tituloNivel[i].value}`,
             image: `${urlImagensNivel[i].value}`,
@@ -223,12 +226,23 @@ function mandarQuizzServidor() {
     console.log (dadosQuizz);
     const promise = axios.post (`${url}`, dadosQuizz);
     promise.then (response => {
-        console.log (response);
+        console.log (response); 
+        responseId = response.data.id;
+        console.log(responseId);
         tela3Parte3.style.display = "none";
         tela3Parte4.style.display = "initial";
+       
     });
     promise.catch ( () => alert ("Ocorreu um erro ao enviar seu quizz para o servidor. Tente novamente."));
     
+}
+
+function acessarQuizz(){
+    const quiz = document.querySelector('.sucesso-quizz');
+    quiz.attributes.getNamedItem('id').value = responseId;
+    console.log(quiz);
+    tela3Parte4.style.display = "none";
+    exibirQuizz(quiz);
 }
 
 function mostrarPaginaSucessoQuizz (){
@@ -243,7 +257,7 @@ function mostrarPaginaSucessoQuizz (){
             Seu quizz está pronto!
         </h2>
 
-        <div class="sucesso-quizz">
+        <div id ="${responseId}" class="sucesso-quizz">
             <img src="${criarQuizzImagem.value}">
             <div class="gradiente"></div>
             <div class="titulo-quizz-sucesso">
@@ -252,11 +266,11 @@ function mostrarPaginaSucessoQuizz (){
             
         </div>
 
-        <div class="botao-acessar-quizz">
+        <div onclick="acessarQuizz()" class="botao-acessar-quizz">
             Acessar Quizz
         </div>
 
-        <div class="botao-voltar-home">
+        <div onclick="home()" class="botao-voltar-home">
             Voltar para home
         </div>
         `;
@@ -761,7 +775,10 @@ function selecionarResposta(resposta) {
 function exibirQuizz(quizz) {
     let idQuizz;
     quizzAtual = quizz;
-    document.querySelector('.tela1').classList.add('esconder');
+    
+    if(!tela1.classList.contains('esconder'))
+        tela1.classList.add('esconder');
+    
     document.querySelector('.tela2').classList.remove('esconder');
     idQuizz = quizz.attributes.getNamedItem('id').value;
     const promise = axios.get(`${url}/${idQuizz}`);

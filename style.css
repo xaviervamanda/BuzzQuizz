@@ -619,7 +619,11 @@ input::placeholder{
     margin: 0px auto;
 }
 
-
+p,
+h2,
+h3 {
+    word-wrap: break-word;  
+}
 
 /* ---------------------------------------- MediaQuery ----------------------------------- */
 

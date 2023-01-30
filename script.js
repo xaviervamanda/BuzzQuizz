@@ -1,4 +1,5 @@
 let listaQuizzes;
+let listaQuizzesUsuario;
 let escolhas = 0;
 let acertos = 0;
 let resultado = 0;
@@ -845,19 +846,30 @@ function exibirQuizz(quizz) {
 }
 
 function getQuizzes (){
+    const listaId = JSON.parse(localStorage.getItem('listaId'));
     const promise = axios.get(url);
 
     promise.then(response => {
         const dadosQuizzesServidor = response.data;
         listaQuizzes = '';
+        listaQuizzesUsuario = '';
         for (let i = 0; i < dadosQuizzesServidor.length; i++) {
-            listaQuizzes += `
-            <div id="${dadosQuizzesServidor[i].id}" onclick="exibirQuizz(this)" class="quizz">
-                <img src="${dadosQuizzesServidor[i].image}">
-                <div class="gradiente"></div>
-                <p>${dadosQuizzesServidor[i].title}</p>
-            </div>
-            `;
+            if(!listaId.includes(dadosQuizzesServidor[i].id))
+                listaQuizzes += `
+                <div id="${dadosQuizzesServidor[i].id}" onclick="exibirQuizz(this)" class="quizz">
+                    <img src="${dadosQuizzesServidor[i].image}">
+                    <div class="gradiente"></div>
+                    <p>${dadosQuizzesServidor[i].title}</p>
+                </div>
+                `;
+            else
+                listaQuizzesUsuario += `
+                <div id="${dadosQuizzesServidor[i].id}" onclick="exibirQuizz(this)" class="quizz">
+                    <img src="${dadosQuizzesServidor[i].image}">
+                    <div class="gradiente"></div>
+                    <p>${dadosQuizzesServidor[i].title}</p>
+                </div>
+                `;
     }
     document.querySelector('.container-quizzes').innerHTML += listaQuizzes;
     });

@@ -115,7 +115,6 @@ function checaAcertosNivel() {
     }
 }
 
-
 function checaTituloNivel () {
     let check = [];
     tituloNivel = document.querySelectorAll('.titulo-nivel');
@@ -136,8 +135,8 @@ function checaTituloNivel () {
 function checaRepostas () {
     let check = [];
     respostasCorretas = document.querySelectorAll('.resposta-correta');
-    respostaIncorretaOptativa2 = document.querySelector('.resposta-incorreta2');
-    respostaIncorretaOptativa3 = document.querySelector('.resposta-incorreta3');
+    respostaIncorretaOptativa2 = document.querySelectorAll('.resposta-incorreta2');
+    respostaIncorretaOptativa3 = document.querySelectorAll('.resposta-incorreta3');
     respostaIncorretaObg = document.querySelectorAll('.resposta-incorreta-obg');
     
     for (let i = 0; i < respostasCorretas.length; i++){
@@ -151,28 +150,29 @@ function checaRepostas () {
         } else{
             alert("Todas as perguntas devem possuir uma resposta correta e incorreta válida. Preencha esses campos.")
         }
-        if (respostaIncorretaOptativa2.value !== '' && imagemRespostaIncOpt2.value === ''){
+        if (respostaIncorretaOptativa2[i].value !== '' && imagemRespostaIncOpt2[i].value === ''){
             alert ("A resposta incorreta 2 deve ter uma imagem. Insira um URL de imagem válido.")
         }
-        if (respostaIncorretaOptativa3.value !== '' && imagemRespostaIncOpt3.value === ''){
+        if (respostaIncorretaOptativa3[i].value !== '' && imagemRespostaIncOpt3[i].value === ''){
             alert ("A resposta incorreta 3 deve ter uma imagem. Insira um URL de imagem válido.")
         }
-        if (respostaIncorretaOptativa2.value !== '' && imagemRespostaIncOpt2.value !== ''){
+        if (respostaIncorretaOptativa2[i].value !== '' && imagemRespostaIncOpt2[i].value !== ''){
             try {
-                new URL(imagemRespostaIncOpt2.value)
+                new URL(imagemRespostaIncOpt2[i].value)
             } catch(err) {
                 alert ("Insira um URL válido na resposta incorreta 2. Deve ser o endereço de uma imagem.");
             }       
         }
-        if (respostaIncorretaOptativa3.value !== '' && imagemRespostaIncOpt3.value !== ''){
+        if (respostaIncorretaOptativa3[i].value !== '' && imagemRespostaIncOpt3[i].value !== ''){
             try {
-                new URL(imagemRespostaIncOpt3.value)
+                new URL(imagemRespostaIncOpt3[i].value)
             } catch(err) {
                 alert ("Insira um URL válido na resposta incorreta 3. Deve ser o endereço de uma imagem.");
             }       
         }
     }
 }
+
 function guardarId(id){
     let listaSerializada = localStorage.getItem('listaId');
     
@@ -211,21 +211,22 @@ function mandarQuizzServidor() {
                 }
             ]
         })
-    }
-    if (respostaIncorretaOptativa2.value !== ''){
-        dadosQuizz.questions[0].answers.push({
-            text: `${respostaIncorretaOptativa2.value}`,
-            image: `${imagemRespostaIncOpt2.value}`,
-            isCorrectAnswer: false    
-        });
+        if (respostaIncorretaOptativa2[i].value !== ''){
+            dadosQuizz.questions[i].answers.push({
+                text: `${respostaIncorretaOptativa2[i].value}`,
+                image: `${imagemRespostaIncOpt2[i].value}`,
+                isCorrectAnswer: false    
+            });
         }
-    if (respostaIncorretaOptativa3.value !== ''){
-        dadosQuizz.questions[0].answers.push({
-            text: `${respostaIncorretaOptativa3.value}`,
-            image: `${imagemRespostaIncOpt3.value}`,
-            isCorrectAnswer: false    
-        });
+        if (respostaIncorretaOptativa3[i].value !== ''){
+            dadosQuizz.questions[i].answers.push({
+                text: `${respostaIncorretaOptativa3[i].value}`,
+                image: `${imagemRespostaIncOpt3[i].value}`,
+                isCorrectAnswer: false    
+            });
+        }
     }
+    
     console.log(tituloNivel);
     for (let i = 0; i < tituloNivel.length; i++){
         dadosQuizz.levels.push({
@@ -249,7 +250,10 @@ function mandarQuizzServidor() {
         tela3Parte4.style.display = "initial";
        
     });
-    promise.catch ( () => alert ("Ocorreu um erro ao enviar seu quizz para o servidor. Tente novamente."));
+    promise.catch ( () => {
+        alert ("Ocorreu um erro ao enviar seu quizz para o servidor. Tente novamente.");
+        window.location.reload(true);
+    });
     
 }
 
@@ -302,13 +306,11 @@ function mostraCamposNivel (divNivelEdicao){
     divCamposNivel.style.display = "flex";
 }
 
-
-
 function checaURLImagemPergunta (){
     let check = [];
     urlImagensObg = document.querySelectorAll('.imagem-pergunta');
-    imagemRespostaIncOpt2 = document.querySelector('.imagem-pergunta2');
-    imagemRespostaIncOpt3 = document.querySelector('.imagem-pergunta3');
+    imagemRespostaIncOpt2 = document.querySelectorAll('.imagem-pergunta2');
+    imagemRespostaIncOpt3 = document.querySelectorAll('.imagem-pergunta3');
     for (let i = 0; i < urlImagensObg.length; i++){
       try {
         new URL(urlImagensObg[i].value)
@@ -481,7 +483,6 @@ function mostrarPaginaCriacaoNiveis(){
         }
     }
 }
-
 
 function mostraCamposPergunta (divPerguntaEdicao){
     divPerguntaEdicao.style.display = "none";
